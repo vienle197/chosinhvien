@@ -36,13 +36,7 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'enableStrictParsing' => false,
-            'suffix' => '',
-            'rules' => []
-        ],
+        'urlManager' => require(__DIR__ . '/urlManager.php'),
     ],
     'params' => $params,
 ];
