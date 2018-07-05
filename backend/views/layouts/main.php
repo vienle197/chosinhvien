@@ -29,8 +29,11 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandImage' => "/img/logo.png",
         'brandUrl' => Yii::$app->homeUrl,
+        'brandOptions' => [
+        'class' => 'brand-op'
+        ],
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -41,6 +44,8 @@ AppAsset::register($this);
         ['label' => 'Category', 'url' => ['/categories/index']],
         ['label' => 'Image', 'url' => ['/images/index']],
         ['label' => 'Promotion', 'url' => ['/promotions/index']],
+        ['label' => 'Manufacturer', 'url' => ['/manufacturer/index']],
+        ['label' => 'Merchant', 'url' => ['/merchant/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
@@ -55,7 +60,7 @@ AppAsset::register($this);
             . '</li>';
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav navbar-right','style' => 'font-size:16px;padding-top:0.7em;padding-bottom:0.7em'],
         'items' => $menuItems,
     ]);
     NavBar::end();

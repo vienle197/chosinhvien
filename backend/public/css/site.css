@@ -118,3 +118,10 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+.brand-op {
+    float: left;
+    height: auto;
+    padding: unset;
+    font-size: 18px;
+    line-height: 20px;
+}
