@@ -8,10 +8,8 @@ use Yii;
  * This is the model class for table "products".
  *
  * @property int $id
- * @property string $Guid Hỗ trợ lưu Sorl
- * @property string $OriginalItemId
  * @property string $Sku
- * @property int $CategoryId Loai bao hiem
+ * @property int $CategoryId
  * @property int $ManufacturerId Hãng sản xuất
  * @property int $MerchantId Người bán
  * @property string $MetaKeywords
@@ -32,6 +30,8 @@ use Yii;
  * @property string $Description
  *
  * @property Categories $category
+ * @property Manufacturer $manufacturer
+ * @property Merchant $merchant
  */
 class Products extends \yii\db\ActiveRecord
 {
@@ -53,11 +53,11 @@ class Products extends \yii\db\ActiveRecord
             [['Price', 'SalePrice'], 'number'],
             [['DateEndSale', 'CreatedTime', 'UpdatedTime'], 'safe'],
             [['Description'], 'string'],
-            [['Guid'], 'string', 'max' => 64],
-            [['OriginalItemId'], 'string', 'max' => 100],
             [['Sku'], 'string', 'max' => 400],
             [['MetaKeywords', 'MetaDescription', 'MetaTitle'], 'string', 'max' => 255],
             [['CategoryId'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['CategoryId' => 'id']],
+            [['ManufacturerId'], 'exist', 'skipOnError' => true, 'targetClass' => Manufacturer::className(), 'targetAttribute' => ['ManufacturerId' => 'id']],
+            [['MerchantId'], 'exist', 'skipOnError' => true, 'targetClass' => Merchant::className(), 'targetAttribute' => ['MerchantId' => 'id']],
         ];
     }
 
@@ -68,8 +68,6 @@ class Products extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'Guid' => 'Guid',
-            'OriginalItemId' => 'Original Item ID',
             'Sku' => 'Sku',
             'CategoryId' => 'Category ID',
             'ManufacturerId' => 'Manufacturer ID',
@@ -99,5 +97,21 @@ class Products extends \yii\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Categories::className(), ['id' => 'CategoryId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getManufacturer()
+    {
+        return $this->hasOne(Manufacturer::className(), ['id' => 'ManufacturerId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMerchant()
+    {
+        return $this->hasOne(Merchant::className(), ['id' => 'MerchantId']);
     }
 }

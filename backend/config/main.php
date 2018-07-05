@@ -45,4 +45,5 @@ return [
     ],
 
     'params' => $params,
+    'name' => 'SV-Shop',
 ];
