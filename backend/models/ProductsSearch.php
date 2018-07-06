@@ -19,7 +19,7 @@ class ProductsSearch extends Products
     {
         return [
             [['id', 'CategoryId', 'ManufacturerId', 'MerchantId', 'StockQuantity', 'AvailableStockQuantity', 'OrderMinimumQuantity', 'OrderMaximumQuantity'], 'integer'],
-            [['Sku', 'MetaKeywords', 'MetaDescription', 'MetaTitle', 'DisableBuyButton', 'AvailableForPreOrder', 'DateEndSale', 'Deleted', 'CreatedTime', 'UpdatedTime', 'Description'], 'safe'],
+            [['Sku', 'ProductName', 'ParentSKU', 'MetaKeywords', 'MetaDescription', 'MetaTitle', 'DisableBuyButton', 'AvailableForPreOrder', 'DateEndSale', 'Deleted', 'CreatedTime', 'UpdatedTime', 'Description', 'OptionVariations'], 'safe'],
             [['Price', 'SalePrice'], 'number'],
         ];
     }
@@ -73,13 +73,16 @@ class ProductsSearch extends Products
         ]);
 
         $query->andFilterWhere(['like', 'Sku', $this->Sku])
+            ->andFilterWhere(['like', 'ProductName', $this->ProductName])
+            ->andFilterWhere(['like', 'ParentSKU', $this->ParentSKU])
             ->andFilterWhere(['like', 'MetaKeywords', $this->MetaKeywords])
             ->andFilterWhere(['like', 'MetaDescription', $this->MetaDescription])
             ->andFilterWhere(['like', 'MetaTitle', $this->MetaTitle])
             ->andFilterWhere(['like', 'DisableBuyButton', $this->DisableBuyButton])
             ->andFilterWhere(['like', 'AvailableForPreOrder', $this->AvailableForPreOrder])
             ->andFilterWhere(['like', 'Deleted', $this->Deleted])
-            ->andFilterWhere(['like', 'Description', $this->Description]);
+            ->andFilterWhere(['like', 'Description', $this->Description])
+            ->andFilterWhere(['like', 'OptionVariations', $this->OptionVariations]);
 
         return $dataProvider;
     }

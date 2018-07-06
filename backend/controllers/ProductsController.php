@@ -27,6 +27,10 @@ class ProductsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
                         'actions' => ['login', 'error'],
                         'allow' => true,
                     ],

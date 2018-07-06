@@ -12,7 +12,9 @@ use yii\widgets\DetailView;
         'attributes' => [
             'id',
             'Sku',
+            'ProductName',
             'CategoryId',
+            'ParentSKU',
             'ManufacturerId',
             'MerchantId',
             'MetaKeywords',
@@ -31,6 +33,7 @@ use yii\widgets\DetailView;
             'CreatedTime',
             'UpdatedTime',
             'Description:ntext',
+            'OptionVariations:ntext',
         ],
     ]) ?>
 

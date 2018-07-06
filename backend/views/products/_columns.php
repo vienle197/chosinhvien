@@ -20,20 +20,28 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'ProductName',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'CategoryId',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'ParentSKU',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'ManufacturerId',
     ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'MerchantId',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'MetaKeywords',
-    ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'MerchantId',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'MetaKeywords',
+    // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'MetaDescription',
@@ -93,6 +101,10 @@ return [
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'Description',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'OptionVariations',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',

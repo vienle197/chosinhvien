@@ -13,7 +13,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Sku')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'ProductName')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'CategoryId')->textInput() ?>
+
+    <?= $form->field($model, 'ParentSKU')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'ManufacturerId')->textInput() ?>
 
@@ -50,6 +54,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'UpdatedTime')->textInput() ?>
 
     <?= $form->field($model, 'Description')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'OptionVariations')->textarea(['rows' => 6]) ?>
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

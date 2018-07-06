@@ -35,6 +35,10 @@ class ImagesController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
             'verbs' => [

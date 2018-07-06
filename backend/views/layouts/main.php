@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use backend\assets\AppAsset;
@@ -23,7 +24,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body onload="$('#loader').hide();">
 <?php $this->beginBody() ?>
 
 <div class="wrap">
@@ -32,20 +33,20 @@ AppAsset::register($this);
         'brandImage' => "/img/logo.png",
         'brandUrl' => Yii::$app->homeUrl,
         'brandOptions' => [
-        'class' => 'brand-op'
+            'class' => 'brand-op'
         ],
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Product', 'url' => ['/products/index']],
-        ['label' => 'Category', 'url' => ['/categories/index']],
-        ['label' => 'Image', 'url' => ['/images/index']],
-        ['label' => 'Promotion', 'url' => ['/promotions/index']],
-        ['label' => 'Manufacturer', 'url' => ['/manufacturer/index']],
-        ['label' => 'Merchant', 'url' => ['/merchant/index']],
+        ['label' => 'Home', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/site/index']],
+        ['label' => 'Product', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/products/index']],
+        ['label' => 'Category', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/categories/index']],
+        ['label' => 'Image', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/images/index']],
+        ['label' => 'Promotion', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/promotions/index']],
+        ['label' => 'Manufacturer', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/manufacturer/index']],
+        ['label' => 'Merchant', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/merchant/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
@@ -54,13 +55,13 @@ AppAsset::register($this);
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
+                ['class' => 'btn btn-link logout', 'onclick' => "$('#loader').show();"]
             )
             . Html::endForm()
             . '</li>';
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right','style' => 'font-size:16px;padding-top:0.7em;padding-bottom:0.7em'],
+        'options' => ['class' => 'navbar-nav navbar-right', 'style' => 'font-size:16px;padding-top:0.7em;padding-bottom:0.7em'],
         'items' => $menuItems,
     ]);
     NavBar::end();
@@ -71,6 +72,16 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
+        <div id="loader" class="loading">
+            <div>
+                <div class="loader progress">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100"
+                         aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <?= $content ?>
     </div>
 </div>
