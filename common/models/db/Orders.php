@@ -15,10 +15,12 @@ use Yii;
  * @property string $buyerName
  * @property string $buyerPhone
  * @property string $buyerAddress
- * @property int $buyerProvinceId
- * @property string $billingCityName
+ * @property int $buyerCityId
+ * @property string $buyerCityName
  * @property int $buyerDistrictId
- * @property string $billingDisctrictName
+ * @property string $buyerDisctrictName
+ * @property int $buyerWardId
+ * @property string $buyerWardtName
  * @property string $paymentType hinh thuc thanh toan. 
  * @property int $paymentStatus trang thai thanh toan
  * @property int $refundStatus 1: ko có, 2: 1 phần, 3: toàn bộ, 4: cancel
@@ -34,6 +36,9 @@ use Yii;
  *
  * @property OrderItems[] $orderItems
  * @property Customer $customer
+ * @property Cities $buyerCity
+ * @property Districts $buyerDistrict
+ * @property Wards $buyerWard
  */
 class Orders extends \yii\db\ActiveRecord
 {
@@ -51,15 +56,18 @@ class Orders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'CustomerId', 'buyerProvinceId', 'buyerDistrictId', 'paymentStatus', 'refundStatus', 'shippingStatus', 'complete', 'remove'], 'integer'],
+            [['type', 'CustomerId', 'buyerCityId', 'buyerDistrictId', 'buyerWardId', 'paymentStatus', 'refundStatus', 'shippingStatus', 'complete', 'remove'], 'integer'],
             [['shipmentPrice', 'totalPrice', 'finalPrice'], 'number'],
             [['createTime', 'updateTime'], 'safe'],
             [['note'], 'string'],
             [['binCode', 'buyerPhone', 'paymentType'], 'string', 'max' => 50],
             [['buyerEmail'], 'string', 'max' => 100],
             [['buyerName', 'buyerAddress'], 'string', 'max' => 220],
-            [['billingCityName', 'billingDisctrictName'], 'string', 'max' => 255],
+            [['buyerCityName', 'buyerDisctrictName', 'buyerWardtName'], 'string', 'max' => 255],
             [['CustomerId'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['CustomerId' => 'id']],
+            [['buyerCityId'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['buyerCityId' => 'id']],
+            [['buyerDistrictId'], 'exist', 'skipOnError' => true, 'targetClass' => Districts::className(), 'targetAttribute' => ['buyerDistrictId' => 'id']],
+            [['buyerWardId'], 'exist', 'skipOnError' => true, 'targetClass' => Wards::className(), 'targetAttribute' => ['buyerWardId' => 'id']],
         ];
     }
 
@@ -69,29 +77,31 @@ class Orders extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'order code',
             'binCode' => 'Bin Code',
             'type' => 'Type',
-            'CustomerId' => 'Customer ID',
+            'CustomerId' => 'FK bảng customer',
             'buyerEmail' => 'Buyer Email',
             'buyerName' => 'Buyer Name',
             'buyerPhone' => 'Buyer Phone',
             'buyerAddress' => 'Buyer Address',
-            'buyerProvinceId' => 'Buyer Province ID',
-            'billingCityName' => 'Billing City Name',
+            'buyerCityId' => 'Buyer City ID',
+            'buyerCityName' => 'Buyer City Name',
             'buyerDistrictId' => 'Buyer District ID',
-            'billingDisctrictName' => 'Billing Disctrict Name',
-            'paymentType' => 'Payment Type',
-            'paymentStatus' => 'Payment Status',
-            'refundStatus' => 'Refund Status',
-            'shippingStatus' => 'Shipping Status',
-            'shipmentPrice' => 'Shipment Price',
+            'buyerDisctrictName' => 'Buyer Disctrict Name',
+            'buyerWardId' => 'Buyer Ward ID',
+            'buyerWardtName' => 'Buyer Wardt Name',
+            'paymentType' => 'hinh thuc thanh toan. ',
+            'paymentStatus' => 'trang thai thanh toan',
+            'refundStatus' => '1: ko có, 2: 1 phần, 3: toàn bộ, 4: cancel',
+            'shippingStatus' => 'Trạng thái vận chuyển hàng',
+            'shipmentPrice' => 'Phí vận chuyển',
             'createTime' => 'Create Time',
             'updateTime' => 'Update Time',
             'complete' => 'Complete',
             'note' => 'Note',
-            'totalPrice' => 'Total Price',
-            'finalPrice' => 'Final Price',
+            'totalPrice' => 'tong gia cua don hang ',
+            'finalPrice' => 'Gia thuc su khach hang phai thanh toan',
             'remove' => 'Remove',
         ];
     }
@@ -110,5 +120,29 @@ class Orders extends \yii\db\ActiveRecord
     public function getCustomer()
     {
         return $this->hasOne(Customer::className(), ['id' => 'CustomerId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBuyerCity()
+    {
+        return $this->hasOne(Cities::className(), ['id' => 'buyerCityId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBuyerDistrict()
+    {
+        return $this->hasOne(Districts::className(), ['id' => 'buyerDistrictId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBuyerWard()
+    {
+        return $this->hasOne(Wards::className(), ['id' => 'buyerWardId']);
     }
 }
