@@ -2,6 +2,9 @@
 
 namespace backend\controllers;
 
+use common\models\db\Categories;
+use common\models\db\Manufacturer;
+use common\models\db\Merchant;
 use Yii;
 use common\models\db\Products;
 use backend\models\ProductsSearch;
@@ -109,10 +112,34 @@ class ProductsController extends Controller
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
+                $cates = Categories::find()->all();
+                $data = [
+                    'category' => [],
+                    'manufacturer' => [],
+                    'merchant' => [],
+                ];
+                foreach ($cates as $cate){
+                    $data['category'] += [
+                        $cate->id => $cate->name
+                    ];
+                }
+                $manufacturer = Manufacturer::find()->all();
+                foreach ($manufacturer as $val){
+                    $data['manufacturer'] += [
+                        $val->id => $val->ManufacturerName
+                    ];
+                }
+                $merchant = Merchant::find()->all();
+                foreach ($merchant as $val){
+                    $data['merchant'] += [
+                        $val->id => $val->MerchantName
+                    ];
+                }
                 return [
                     'title'=> "Create new Products",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                        'data' =>$data,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
