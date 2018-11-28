@@ -7,5 +7,6 @@ return [
     'rules' => [
         '' => 'home/index',
         'index.html' => 'home/index',
+        'checkout.api.nganluong.post.php' => 'service/service/hung-nl',
     ]
 ];
