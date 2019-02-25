@@ -8,22 +8,22 @@ use Yii;
  * This is the model class for table "address".
  *
  * @property int $id
- * @property int $CustomerId id Khách 
- * @property string $buyerEmail Email người mua
- * @property string $buyerName Tên người mua
- * @property string $buyerPhone
- * @property string $buyerAddress
- * @property int $buyerCityId
- * @property string $buyerCityName
- * @property int $buyerDistrictId
- * @property string $buyerDisctrictName
- * @property int $buyerWardId
- * @property string $buyerWardtName
- * @property int $delete
+ * @property int $customer_id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property int $ward_id
+ * @property int $district_id
+ * @property int $city_id
+ * @property int $is_default
+ * @property int $status
+ * @property int $created_at
+ * @property int $updated_at
  *
- * @property Cities $buyerCity
- * @property Districts $buyerDistrict
- * @property Wards $buyerWard
+ * @property Customer $customer
+ * @property SystemCity $city
+ * @property SystemDistrict $district
+ * @property SystemWards $ward
  */
 class Address extends \yii\db\ActiveRecord
 {
@@ -41,16 +41,13 @@ class Address extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id', 'CustomerId', 'buyerCityId', 'buyerDistrictId', 'buyerWardId', 'delete'], 'integer'],
-            [['buyerEmail'], 'string', 'max' => 100],
-            [['buyerName', 'buyerAddress'], 'string', 'max' => 220],
-            [['buyerPhone'], 'string', 'max' => 50],
-            [['buyerCityName', 'buyerDisctrictName', 'buyerWardtName'], 'string', 'max' => 255],
-            [['id'], 'unique'],
-            [['buyerCityId'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['buyerCityId' => 'id']],
-            [['buyerDistrictId'], 'exist', 'skipOnError' => true, 'targetClass' => Districts::className(), 'targetAttribute' => ['buyerDistrictId' => 'id']],
-            [['buyerWardId'], 'exist', 'skipOnError' => true, 'targetClass' => Wards::className(), 'targetAttribute' => ['buyerWardId' => 'id']],
+            [['customer_id', 'ward_id', 'district_id', 'city_id', 'is_default', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at'], 'required'],
+            [['first_name', 'last_name', 'email'], 'string', 'max' => 255],
+            [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
+            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => SystemCity::className(), 'targetAttribute' => ['city_id' => 'id']],
+            [['district_id'], 'exist', 'skipOnError' => true, 'targetClass' => SystemDistrict::className(), 'targetAttribute' => ['district_id' => 'id']],
+            [['ward_id'], 'exist', 'skipOnError' => true, 'targetClass' => SystemWards::className(), 'targetAttribute' => ['ward_id' => 'id']],
         ];
     }
 
@@ -61,42 +58,49 @@ class Address extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'CustomerId' => 'id Khách ',
-            'buyerEmail' => 'Email người mua',
-            'buyerName' => 'Tên người mua',
-            'buyerPhone' => 'Buyer Phone',
-            'buyerAddress' => 'Buyer Address',
-            'buyerCityId' => 'Buyer City ID',
-            'buyerCityName' => 'Buyer City Name',
-            'buyerDistrictId' => 'Buyer District ID',
-            'buyerDisctrictName' => 'Buyer Disctrict Name',
-            'buyerWardId' => 'Buyer Ward ID',
-            'buyerWardtName' => 'Buyer Wardt Name',
-            'delete' => 'Delete',
+            'customer_id' => 'Customer ID',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'email' => 'Email',
+            'ward_id' => 'Ward ID',
+            'district_id' => 'District ID',
+            'city_id' => 'City ID',
+            'is_default' => 'Is Default',
+            'status' => 'Status',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBuyerCity()
+    public function getCustomer()
     {
-        return $this->hasOne(Cities::className(), ['id' => 'buyerCityId']);
+        return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBuyerDistrict()
+    public function getCity()
     {
-        return $this->hasOne(Districts::className(), ['id' => 'buyerDistrictId']);
+        return $this->hasOne(SystemCity::className(), ['id' => 'city_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBuyerWard()
+    public function getDistrict()
     {
-        return $this->hasOne(Wards::className(), ['id' => 'buyerWardId']);
+        return $this->hasOne(SystemDistrict::className(), ['id' => 'district_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWard()
+    {
+        return $this->hasOne(SystemWards::className(), ['id' => 'ward_id']);
     }
 }

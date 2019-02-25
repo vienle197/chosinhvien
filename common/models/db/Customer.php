@@ -8,32 +8,22 @@ use Yii;
  * This is the model class for table "customer".
  *
  * @property int $id
+ * @property string $first_name
+ * @property string $last_name
  * @property string $username
- * @property string $password_hash
- * @property string $email
- * @property string $fullname
- * @property string $avatar
- * @property string $addres
  * @property string $auth_key
+ * @property string $password_hash
  * @property string $password_reset_token
- * @property int $status
- * @property string $created_at
- * @property string $updated_at
+ * @property string $email
  * @property string $phone
- * @property int $gender
- * @property string $birthday
- * @property string $address
- * @property int $Deleted Đã xóa hay chưa?
- * @property int $CityId
- * @property int $DistrictId
- * @property int $active
- * @property int $WardId
+ * @property int $status
+ * @property int $last_order_at
+ * @property int $created_at
+ * @property int $updated_at
  *
- * @property Cities $city
- * @property Districts $district
- * @property Wards $ward
- * @property OrderItems[] $orderItems
- * @property Orders[] $orders
+ * @property Address[] $addresses
+ * @property Cart[] $carts
+ * @property Order[] $orders
  */
 class Customer extends \yii\db\ActiveRecord
 {
@@ -51,15 +41,16 @@ class Customer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['status', 'gender', 'Deleted', 'CityId', 'DistrictId', 'active', 'WardId'], 'integer'],
-            [['created_at', 'updated_at', 'birthday'], 'safe'],
-            [['username', 'email', 'fullname', 'auth_key'], 'string', 'max' => 200],
-            [['password_hash', 'avatar', 'addres', 'password_reset_token'], 'string', 'max' => 255],
-            [['phone'], 'string', 'max' => 50],
-            [['address'], 'string', 'max' => 500],
-            [['CityId'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['CityId' => 'id']],
-            [['DistrictId'], 'exist', 'skipOnError' => true, 'targetClass' => Districts::className(), 'targetAttribute' => ['DistrictId' => 'id']],
-            [['WardId'], 'exist', 'skipOnError' => true, 'targetClass' => Wards::className(), 'targetAttribute' => ['WardId' => 'id']],
+            [['first_name', 'last_name', 'username', 'auth_key', 'password_hash', 'email', 'phone', 'last_order_at', 'created_at', 'updated_at'], 'required'],
+            [['status', 'last_order_at', 'created_at', 'updated_at'], 'integer'],
+            [['first_name', 'last_name', 'username', 'password_hash', 'password_reset_token', 'email', 'phone'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['first_name'], 'unique'],
+            [['last_name'], 'unique'],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['phone'], 'unique'],
+            [['password_reset_token'], 'unique'],
         ];
     }
 
@@ -70,59 +61,35 @@ class Customer extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
             'username' => 'Username',
-            'password_hash' => 'Password Hash',
-            'email' => 'Email',
-            'fullname' => 'Fullname',
-            'avatar' => 'Avatar',
-            'addres' => 'Addres',
             'auth_key' => 'Auth Key',
+            'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
+            'email' => 'Email',
+            'phone' => 'Phone',
             'status' => 'Status',
+            'last_order_at' => 'Last Order At',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'phone' => 'Phone',
-            'gender' => 'Gender',
-            'birthday' => 'Birthday',
-            'address' => 'Address',
-            'Deleted' => 'Đã xóa hay chưa?',
-            'CityId' => 'City ID',
-            'DistrictId' => 'District ID',
-            'active' => 'Active',
-            'WardId' => 'Ward ID',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCity()
+    public function getAddresses()
     {
-        return $this->hasOne(Cities::className(), ['id' => 'CityId']);
+        return $this->hasMany(Address::className(), ['customer_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDistrict()
+    public function getCarts()
     {
-        return $this->hasOne(Districts::className(), ['id' => 'DistrictId']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getWard()
-    {
-        return $this->hasOne(Wards::className(), ['id' => 'WardId']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getOrderItems()
-    {
-        return $this->hasMany(OrderItems::className(), ['CustomerId' => 'id']);
+        return $this->hasMany(Cart::className(), ['customer_id' => 'id']);
     }
 
     /**
@@ -130,6 +97,6 @@ class Customer extends \yii\db\ActiveRecord
      */
     public function getOrders()
     {
-        return $this->hasMany(Orders::className(), ['CustomerId' => 'id']);
+        return $this->hasMany(Order::className(), ['customer_id' => 'id']);
     }
 }

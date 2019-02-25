@@ -8,11 +8,11 @@ use Yii;
  * This is the model class for table "merchant".
  *
  * @property int $id
- * @property string $MerchantName
+ * @property string $name
  * @property string $note
  * @property int $active
  *
- * @property Products[] $products
+ * @property Product[] $products
  */
 class Merchant extends \yii\db\ActiveRecord
 {
@@ -30,9 +30,8 @@ class Merchant extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['MerchantName'], 'required'],
             [['active'], 'integer'],
-            [['MerchantName', 'note'], 'string', 'max' => 255],
+            [['name', 'note'], 'string', 'max' => 255],
         ];
     }
 
@@ -43,7 +42,7 @@ class Merchant extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'MerchantName' => 'Merchant Name',
+            'name' => 'Name',
             'note' => 'Note',
             'active' => 'Active',
         ];
@@ -54,6 +53,6 @@ class Merchant extends \yii\db\ActiveRecord
      */
     public function getProducts()
     {
-        return $this->hasMany(Products::className(), ['MerchantId' => 'id']);
+        return $this->hasMany(Product::className(), ['merchant_id' => 'id']);
     }
 }

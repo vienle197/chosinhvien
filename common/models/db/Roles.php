@@ -7,13 +7,11 @@ use Yii;
 /**
  * This is the model class for table "roles".
  *
- * @property string $id
+ * @property int $id
  * @property string $name
- * @property string $slug
- * @property string $description
- * @property int $level
- * @property string $created_at
- * @property string $updated_at
+ * @property int $active
+ *
+ * @property UserRoles[] $userRoles
  */
 class Roles extends \yii\db\ActiveRecord
 {
@@ -31,10 +29,8 @@ class Roles extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'slug'], 'required'],
-            [['level'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['name', 'slug', 'description'], 'string', 'max' => 191],
+            [['active'], 'integer'],
+            [['name'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,11 +42,15 @@ class Roles extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'slug' => 'Slug',
-            'description' => 'Description',
-            'level' => 'Level',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'active' => 'Active',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserRoles()
+    {
+        return $this->hasMany(UserRoles::className(), ['role_id' => 'id']);
     }
 }
