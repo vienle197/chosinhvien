@@ -9,10 +9,9 @@
 namespace console\controllers;
 
 
-use common\models\db\Cities;
-use common\models\db\Disctricts;
-use common\models\db\Districts;
-use common\models\db\Wards;
+use common\models\db\SystemCity as Cities;
+use common\models\db\SystemDistrict as Districts;
+use common\models\db\SystemWards as Wards;
 use yii\base\Controller;
 
 class ImportController extends Controller
@@ -24,8 +23,8 @@ class ImportController extends Controller
 
             $city = new Cities();
             $city->id = $val->code;
-            $city->CityName = $val->name;
-            $city->Note = $val->name;
+            $city->city_name = $val->name;
+            $city->note = $val->name;
             $city->save();
             echo $city->id . PHP_EOL;
         }
@@ -38,9 +37,9 @@ class ImportController extends Controller
         foreach ($content as $val){
             $district = new Districts();
             $district->id = $val->code;
-            $district->DistrictName = $val->name;
-            $district->CityId = $val->parent_code;
-            $district->Note = $val->path;
+            $district->district_name = $val->name;
+            $district->city_id = $val->parent_code;
+            $district->note = $val->path;
             $district->save();
             echo $district->id . PHP_EOL;
         }
@@ -53,15 +52,18 @@ class ImportController extends Controller
         $i = 0;
         $stard = time();
         foreach ($content as $val){
+            /** @var Districts $district */
+            $district = Districts::find()->where(['id' => $val->parent_code])->one();
             $ward = new Wards();
             $ward->id = $val->code;
-            $ward->WardName = $val->name;
-            $ward->DistrictId = $val->parent_code;
-            $ward->Note = "." .$val->path;
-            $ward->Note = str_replace("." .$val->name,$val->name_with_type,$ward->Note);
+            $ward->wards_name = $val->name;
+            $ward->district_id = $val->parent_code;
+            $ward->city_id = $district ? $district->city_id : null;
+            $ward->note = "." .$val->path;
+            $ward->note = str_replace("." .$val->name,$val->name_with_type,$ward->note);
             $ward->save();
             $i++;
-            echo $i." / -- ". $ward->Note . PHP_EOL;
+            echo $i." / -- ". $ward->note . PHP_EOL;
         }
         echo (time() - $stard)." s \n";
         print_r("done!");
