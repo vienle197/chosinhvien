@@ -21,13 +21,13 @@ use common\components\LanguageHelpers;
         </div>
     </div>
     <div class="col-md-offset-1 col-md-7">
-        <h3><?= $product_child->name ? $product_child->name : $product->name ?></h3>
+        <h3><?= $product_child->name ?></h3>
         <hr>
         <div style="padding-bottom: 5px" >
-            <span class="content-infor-product" style="padding-left: 0px">Người bán: <a style="cursor: pointer" id="merchant"><?= $product_child->merchant->name ? $product_child->merchant->name : $product->merchant->name ?></a></span><span class="content-infor-product"><?= $product_child->sold_quantity ? $product_child->sold_quantity : $product->sold_quantity ?> đơn đã được mua</span>
-            <br><span class="content-infor-product" style="padding-left: 0px">Nhà sản xuất <a style="cursor: pointer" id="manufacturer"><?= $product_child->manufacturer->name ? $product_child->manufacturer->name : $product->manufacturer->name ?></a></span>
+            <span class="content-infor-product" style="padding-left: 0px">Người bán: <a style="cursor: pointer" id="merchant"><?= $product_child->merchant->name ?></a></span><span class="content-infor-product"><?= $product_child->sold_quantity?> đơn đã được mua</span>
+            <br><span class="content-infor-product" style="padding-left: 0px">Nhà sản xuất <a style="cursor: pointer" id="manufacturer"><?= $product_child->manufacturer->name?></a></span>
         </div>
-        <h3 class="product-price" style="margin-bottom: 20px;padding: 20px; background: #d6d1d1"><?= LanguageHelpers::showMoney($product_child->sale_price && $product_child->expired_time_sale_price > time() ? $product_child->sale_price : $product->price) ?> <del class="product-old-price"><?= $product_child->expired_time_sale_price>time() ?LanguageHelpers::showMoney($product_child->price):"" ?></del> <span class="product-old-price" ><?= $product_child->sale_percent && $product_child->expired_time_sale_price > time() ? " -".$product_child->sale_percent."% GIẢM" : "" ?></span></h3>
+        <h3 class="product-price" style="margin-bottom: 20px;padding: 20px; background: #d6d1d1"><?= LanguageHelpers::showMoney($product_child->sale_price && $product_child->expired_time_sale_price > time() ? $product_child->sale_price : 0) ?> <del class="product-old-price"><?= $product_child->expired_time_sale_price>time() ?LanguageHelpers::showMoney($product_child->price):"" ?></del> <span class="product-old-price" ><?= $product_child->sale_percent && $product_child->expired_time_sale_price > time() ? " -".$product_child->sale_percent."% GIẢM" : "" ?></span></h3>
         <div class="row title-variation">
             <?php foreach ($variations as $key => $values) {?>
                 <div class="col-lg-4">
