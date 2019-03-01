@@ -9,6 +9,8 @@
 namespace console\controllers;
 
 
+use common\models\db\Image;
+use common\models\db\Product;
 use common\models\db\SystemCity as Cities;
 use common\models\db\SystemDistrict as Districts;
 use common\models\db\SystemWards as Wards;
@@ -68,5 +70,34 @@ class ImportController extends Controller
         echo (time() - $stard)." s \n";
         print_r("done!");
         die;
+    }
+    public function actionProduct(){
+        /** @var Product[] $products */
+        $products = Product::find()->where(['image' => null])->limit(500) -> all();
+        foreach($products as $product){
+            /** @var Image $image */
+            $image = Image::find()->where(['product_id' => $product->id])->one();
+            if(!$image){
+                $image = Image::findOne(rand(1,100));
+            }
+            $product->image = $image->url;
+            $product->sale_percent = round($product->sale_price / $product->price,4) * 100;
+            $product->save(0);
+            echo $product->sale_percent." - ".$product->image.PHP_EOL;
+        }
+    }
+    public function actionProductLoad(){
+        /** @var Product[] $products */
+        $products = Product::find()->limit(500) -> all();
+        foreach($products as $product){
+            $product->image = str_replace("270/360/city/city/city/city/?","270/360/city/?",$product->image);
+            $product->image = str_replace("270/360/?","270/360/city/?",$product->image);
+            $product->price = round($product->price,-3);
+            $product->sale_percent = rand(5,80);
+            $product->expired_time_sale_price = rand(time() - (60*60*24*7),time() + (60*60*24*7));
+            $product->sale_price = round($product->price * (100-$product->sale_percent)/100,-3);
+            $product->save(0);
+            echo $product->sale_percent." - ".$product->image.PHP_EOL;
+        }
     }
 }

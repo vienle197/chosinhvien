@@ -27,7 +27,7 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 <?php
- include "header.php";
+ echo \frontend\views\widgets\Header::widget();
  include "nav.php";
   ?>
 <?= $content ?>
