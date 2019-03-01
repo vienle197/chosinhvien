@@ -25,35 +25,32 @@ class ItemController extends ServiceController
         }
 
         /** @var Product $product_child */
-        $product_child =  $product = Product::find()->where(['id'=>$idProduct,'active'=>1])
+        $product_child = Product::find()->where(['id'=>$idProduct,'active'=>1])
             ->with(['merchant','orderItems','category','manufacturer',
                 'variationProducts' => function ($q){
                     /** @var ActiveQuery $q */
                     $q->with('variation');
                 }
             ])->limit(1)->one();
+        $variations = [];
         if($parent){
-            /** @var VariationProduct $variation */
-            $variation = VariationProduct::find()->where(['parent_sku'=>$parent,'active'=>1])
-                ->with(['merchant','orderItems','category','manufacturer',
-                    'variationProducts' => function ($q){
-                        /** @var ActiveQuery $q */
-                        $q->with('variation');
-                    }
-                ])->limit(1)->one();
+            /** @var VariationProduct[] $variations */
+            $variations = VariationProduct::find()->where(['parent_sku'=>$parent,'active'=>1])
+                ->with(['variation'])->all();
         }
         $variation = [];
-        foreach ($product->variationProducts as $variationProduct) {
-            $variation[$variationProduct->variation->key][] = $variationProduct->variation->value;
+        foreach ($variations as $v) {
+            $variation[$v->variation->key][] = [
+                'value' => $v->variation->value,
+                'id' => $v->variation->id
+            ];
         }
         $variation_child = [];
         foreach ($product_child->variationProducts as $variationProduct) {
-            $variation_child[$variationProduct->variation->key][] = $variationProduct->variation->value;
+            $variation_child[] = $variationProduct->variation->id;
         }
-
         return $this->response(true,"get done!",[
            'content' =>  DetailProduct::widget([
-                'product' => $product,
                 'product_child' => $product_child,
                 'variations' => $variation,
                 'variation_child' => $variation_child,

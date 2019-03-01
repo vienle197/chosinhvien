@@ -13,15 +13,15 @@ use yii\base\Widget;
 
 class DetailProduct extends Widget
 {
-    public $product;
     public $variations;
+    public $variation_child;
     public $product_child;
     public function run()
     {
         return $this->render('detailproduct',
             [
-                'product' => $this->product,
                 'product_child' => $this->product_child,
+                'variation_child' => $this->variation_child,
                 'variations' => $this->variations
             ]);
     }

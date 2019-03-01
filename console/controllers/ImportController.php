@@ -104,9 +104,10 @@ class ImportController extends Controller
 
     public function actionRandomVariation(){
         /** @var VariationProduct[] $variations */
-        $variations = VariationProduct::find()->all();
+        $variations = VariationProduct::find()->with('product')->all();
         foreach ($variations as $variation){
             $variation->variation_id = rand(1,30);
+            $variation->parent_sku = $variation->product->parent_sku;
             echo $variation->id ." - " .$variation->variation_id.PHP_EOL;
             $variation->save(0);
         }

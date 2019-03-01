@@ -16,3 +16,13 @@ var viewDetail = function (idProduct,parent) {
         }
     });
 };
+var changeQuantity = function (type) {
+  var value = parseInt($('#quantity').val());
+  value = type == "+" ? value + 1 : value - 1;
+    $('#quantity').val(value <= 0 ? 1 : value);
+};
+
+var changeInputNumber = function(){
+    var value = parseInt($('#quantity').val());
+    $('#quantity').val(value <= 0 ? 1 : value);
+};
