@@ -9,6 +9,7 @@ var viewDetail = function (idProduct,parent) {
         dataType: "json",
         success: function (result) {
             if(result.success){
+                $('#modal_body_detail').html(result.data.content);
                 $('#detailModel').modal();
             }
             console.log(result);

@@ -10,6 +10,7 @@ namespace frontend\controllers\service;
 
 
 use common\models\db\Product;
+use frontend\views\widgets\DetailProduct;
 use yii\db\ActiveQuery;
 
 class ItemController extends ServiceController
@@ -28,19 +29,28 @@ class ItemController extends ServiceController
                     /** @var ActiveQuery $q */
                     $q->with('variation');
                 }
-            ])->limit(1)->asArray()->one();
+            ])->limit(1)->one();
         if($parent){
+            /** @var Product $product */
             $product = Product::find()->where(['sku'=>$parent,'active'=>1])
                 ->with(['merchant','orderItems','category','manufacturer',
                     'variationProducts' => function ($q){
                         /** @var ActiveQuery $q */
                         $q->with('variation');
                     }
-                ])->limit(1)->asArray()->one();
+                ])->limit(1)->one();
         }
+        $variation = [];
+        foreach ($product->variationProducts as $variationProduct) {
+            $variation[$variationProduct->variation->key][] = $variationProduct->variation->value;
+        }
+
         return $this->response(true,"get done!",[
-            'product' => $product,
-            'product_child' => $product_child,
+           'content' =>  DetailProduct::widget([
+                'product' => $product,
+                'product_child' => $product_child,
+                'variations' => $variation,
+            ])
         ]);
     }
 }

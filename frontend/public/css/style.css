@@ -1729,3 +1729,20 @@ textarea.input {
     width: 100%;
   }
 }
+.content-infor-product{
+  padding-left: 10px;
+  padding-right: 10px;
+  border-right: solid 1px #b9b9b9;
+}
+.title-variation{
+  font-size: 125%;
+}
+
+.title-detail-product{
+  background: #b9b9b9;
+  padding: 10px;
+}
+.description{
+  padding: 25px;
+  padding-top: 10px;
+}

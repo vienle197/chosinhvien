@@ -14,6 +14,7 @@ use common\models\db\Product;
 use common\models\db\SystemCity as Cities;
 use common\models\db\SystemDistrict as Districts;
 use common\models\db\SystemWards as Wards;
+use common\models\db\VariationProduct;
 use yii\base\Controller;
 
 class ImportController extends Controller
@@ -98,6 +99,16 @@ class ImportController extends Controller
             $product->sale_price = round($product->price * (100-$product->sale_percent)/100,-3);
             $product->save(0);
             echo $product->sale_percent." - ".$product->image.PHP_EOL;
+        }
+    }
+
+    public function actionRandomVariation(){
+        /** @var VariationProduct[] $variations */
+        $variations = VariationProduct::find()->all();
+        foreach ($variations as $variation){
+            $variation->variation_id = rand(1,30);
+            echo $variation->id ." - " .$variation->variation_id.PHP_EOL;
+            $variation->save(0);
         }
     }
 }

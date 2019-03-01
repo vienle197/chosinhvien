@@ -30,6 +30,7 @@ use Yii;
  * @property string $meta_title
  * @property string $image
  * @property string $sale_percent
+ * @property string $description
  *
  * @property Cart[] $carts
  * @property OrderItem[] $orderItems
@@ -56,6 +57,7 @@ class Product extends \yii\db\ActiveRecord
         return [
             [['category_id', 'manufacturer_id', 'merchant_id', 'stock_quantity', 'sold_quantity', 'min_quantity', 'max_quantity', 'disable_buy_now', 'disable_add_to_card', 'is_pre_order', 'expired_time_sale_price', 'active'], 'integer'],
             [['price', 'sale_price', 'sale_percent'], 'number'],
+            [['description'], 'string'],
             [['name', 'sku', 'parent_sku', 'meta_keywords', 'meta_description', 'meta_title'], 'string', 'max' => 255],
             [['image'], 'string', 'max' => 500],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
@@ -93,6 +95,7 @@ class Product extends \yii\db\ActiveRecord
             'meta_title' => 'Meta Title',
             'image' => 'Image',
             'sale_percent' => 'Sale Percent',
+            'description' => 'Description',
         ];
     }
 
