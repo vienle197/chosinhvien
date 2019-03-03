@@ -9,8 +9,10 @@
 namespace frontend\controllers;
 
 
+use common\models\db\Cart;
 use common\models\db\Category;
 use common\models\db\Product;
+use yii\db\ActiveQuery;
 use yii\web\Controller;
 
 class HomeController extends Controller
@@ -26,6 +28,25 @@ class HomeController extends Controller
             "cates" => $cates,
             "product_hot" => $product_hot,
             "product_hot_sale" => $product_hot_sale,
+        ]);
+    }
+    public function actionCart(){
+        $user = \Yii::$app->user->getIdentity();
+        $type = \Yii::$app->request->get('type','cart');
+        if(!$user){
+            $carts = [];
+        }else{
+            $carts = Cart::find()->with([
+                'product' => function ($q){
+                    /** @var ActiveQuery $q */
+                    $q->with(['merchant','manufacturer']);
+                }
+            ])->where(['customer_id' => $user->getId(),'active'=>1])
+                ->all();
+        }
+        return $this->render('cart',[
+            "carts" => $carts,
+            "type" => $type
         ]);
     }
 }

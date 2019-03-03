@@ -15,6 +15,7 @@ use Yii;
  * @property int $created_at
  * @property int $updated_at
  * @property int $active
+ * @property int $quantity
  *
  * @property Customer $customer
  * @property Product $product
@@ -35,7 +36,7 @@ class Cart extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['customer_id', 'product_id', 'created_at', 'updated_at', 'active'], 'integer'],
+            [['customer_id', 'product_id', 'created_at', 'updated_at', 'active', 'quantity'], 'integer'],
             [['price_amount', 'final_price_amount'], 'number'],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
@@ -56,6 +57,7 @@ class Cart extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'active' => 'Active',
+            'quantity' => 'Quantity',
         ];
     }
 

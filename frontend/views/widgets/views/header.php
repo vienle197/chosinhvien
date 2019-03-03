@@ -42,7 +42,7 @@ use common\components\LanguageHelpers;
             <div class="pull-left">
                 <!-- Logo -->
                 <div class="header-logo">
-                    <a class="logo" href="#">
+                    <a class="logo" href="/">
                         <img src="/img/logo.png" alt="">
                     </a>
                 </div>
@@ -75,10 +75,9 @@ use common\components\LanguageHelpers;
                             </div>
                             <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
                         </div>
-                        <a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
+                        <a href="#" class="text-uppercase" onclick="$('#login').modal()">Login</a> / <a href="#" class="text-uppercase">Join</a>
                         <ul class="custom-menu">
                             <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
                             <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
                             <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
                             <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
@@ -143,3 +142,110 @@ use common\components\LanguageHelpers;
     </div>
     <!-- container -->
 </header>
+<div class="modal fade " id="login" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="true">
+    <div class="modal-dialog" role="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel"><?= LanguageHelpers::loadLanguage("login",'Đăng nhập') ?></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="padding: 10px;">
+                    <div class="form-group">
+                        <label><?= LanguageHelpers::loadLanguage('username','Tên đăng nhập') ?></label>
+                        <span class="">
+                            <input name="username" type="text" id="username" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('username','Tên đăng nhập') ?>">
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label><?= LanguageHelpers::loadLanguage('password','Mật khẩu') ?></label>
+                        <span class="">
+                            <input name="password" type="password" id="password" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('username','Tên đăng nhập') ?>">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="product-btns row">
+                    <div class="col-lg-6">
+                        <button class="btn btn-success" style="width: -webkit-fill-available"><?= LanguageHelpers::loadLanguage("login",'Đăng nhập') ?></button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="btn btn-warning" onclick="$('#login').modal('hide');$('#signUp').modal('show');" style="width: -webkit-fill-available"><?= LanguageHelpers::loadLanguage("signUp",'Đăng ký') ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="signUp" tabindex="-1" role="dialog" aria-labelledby="signUp" aria-hidden="true">
+    <div class="modal-dialog" role="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel"><?= LanguageHelpers::loadLanguage("signUp",'Đăng ký') ?></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="padding: 10px;">
+                    <div class="form-group">
+                        <label><?= LanguageHelpers::loadLanguage('first-name','Tên') ?></label>
+                        <span class="">
+                            <input name="first_name" type="text" id="first_name" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('first-name','Tên') ?>">
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label><?= LanguageHelpers::loadLanguage('last_name','Họ') ?></label>
+                        <span class="">
+                            <input name="last_name" type="text" id="last_name" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('last_name','Họ') ?>">
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label><?= LanguageHelpers::loadLanguage('email','Email') ?></label>
+                        <span class="">
+                            <input name="email" type="text" id="email" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('email','email') ?>">
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label><?= LanguageHelpers::loadLanguage('phone','Số điện thoại') ?></label>
+                        <span class="">
+                            <input name="phone" type="text" id="phone" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('phone','Số điện thoại') ?>">
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label><?= LanguageHelpers::loadLanguage('username','Tên đăng nhập') ?></label>
+                        <span class="">
+                            <input name="username" type="text" id="username" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('username','Tên đăng nhập') ?>">
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label><?= LanguageHelpers::loadLanguage('password','Mật khẩu') ?></label>
+                        <span class="">
+                            <input name="password" type="password" id="password" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('username','Tên đăng nhập') ?>">
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label><?= LanguageHelpers::loadLanguage('re_password','Nhập lại mật khẩu') ?></label>
+                        <span class="">
+                            <input name="re_password" type="password" id="re_password" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('re_password','Nhập lại mật khẩu') ?>">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="product-btns row">
+                    <div class="col-lg-12">
+                        <?= LanguageHelpers::loadLanguage("you_have_account",'Bạn đã có tài khoản?') ?>
+                        <a href="javascript:void (0);" style="text-decoration:underline;" onclick="$('#signUp').modal('hide');$('#login').modal('show');" ><?= LanguageHelpers::loadLanguage("login_now",'Đăng nhập ngay.') ?></a>
+                    </div>
+                    <div class="col-lg-12">
+                        <button class="btn btn-success" style="width: -webkit-fill-available"><?= LanguageHelpers::loadLanguage("login",'Đăng nhập') ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

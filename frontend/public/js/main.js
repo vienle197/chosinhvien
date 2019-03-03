@@ -145,3 +145,8 @@
   }
 
 })(jQuery);
+var popupNotify = function (title,mess) {
+  $('#titlePopup').html(title);
+  $('#contentPopup').html(mess);
+  $('#popupNotify').modal();
+};

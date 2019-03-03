@@ -11,11 +11,13 @@ var viewDetail = function (idProduct,parent) {
             if(result.success){
                 $('#modal_body_detail').html(result.data.content);
                 $('#detailModel').modal();
+            }else {
+                popupNotify('Fail', 'Get Product fail!')
             }
-            console.log(result);
         }
     });
 };
+
 var changeQuantity = function (type) {
   var value = parseInt($('#quantity').val());
   value = type == "+" ? value + 1 : value - 1;
@@ -25,4 +27,28 @@ var changeQuantity = function (type) {
 var changeInputNumber = function(){
     var value = parseInt($('#quantity').val());
     $('#quantity').val(value <= 0 ? 1 : value);
+};
+var addtocart = function (type) {
+    var itemid = $('#product_id').val();
+    var quantity = $('#quantity').val();
+    $.ajax({
+        url: 'service/item/add-to-cart',
+        method: "POST",
+        data: {
+            product_id: itemid,
+            quantity: quantity,
+        },
+        dataType: "json",
+        success: function (result) {
+            if(result.success){
+                if(type == 'cart'){
+                    popupNotify('Thành công', "Đã thêm sản phẩm vào giỏ hàng.");
+                }else {
+                    window.location.assign('/cart/buynow');
+                }
+            }else {
+                popupNotify('Fail', result.message)
+            }
+        }
+    });
 };
