@@ -73,16 +73,20 @@ use common\components\LanguageHelpers;
                             <div class="header-btns-icon">
                                 <i class="fa fa-user-o"></i>
                             </div>
-                            <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+                            <strong class="text-uppercase"><?= Yii::$app->user->isGuest ? 'My Account' : Yii::$app->user->getIdentity()->first_name . " ". Yii::$app->user->getIdentity()->last_name ?> <i class="fa fa-caret-down"></i></strong>
                         </div>
-                        <a href="#" class="text-uppercase" onclick="$('#login').modal()">Login</a> / <a href="#" class="text-uppercase">Join</a>
-                        <ul class="custom-menu">
-                            <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                            <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                            <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
-                        </ul>
+                        <?php if(Yii::$app->user->isGuest) { ?>
+                            <a href="javascript:void(0);" class="text-uppercase" onclick="$('#login').modal()">Login</a> / <a href="javascript:void(0);" onclick="$('#signUp').modal()" class="text-uppercase">Join</a>
+                        <?php }else{?>
+                            <span><?= LanguageHelpers::loadLanguage("Hello_account" , "Xin chào!") ?></span>
+                            <ul class="custom-menu" style="display: <?= Yii::$app->user->isGuest ? 'none' : 'block' ?>">
+                                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                                <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
+                                <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
+                                <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
+                                <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+                            </ul>
+                        <?php }?>
                     </li>
                     <!-- /Account -->
 
@@ -170,7 +174,7 @@ use common\components\LanguageHelpers;
             <div class="modal-footer">
                 <div class="product-btns row">
                     <div class="col-lg-6">
-                        <button class="btn btn-success" style="width: -webkit-fill-available"><?= LanguageHelpers::loadLanguage("login",'Đăng nhập') ?></button>
+                        <button class="btn btn-success" style="width: -webkit-fill-available" onclick="login()"><?= LanguageHelpers::loadLanguage("login",'Đăng nhập') ?></button>
                     </div>
                     <div class="col-lg-6">
                         <button class="btn btn-warning" onclick="$('#login').modal('hide');$('#signUp').modal('show');" style="width: -webkit-fill-available"><?= LanguageHelpers::loadLanguage("signUp",'Đăng ký') ?></button>
@@ -218,19 +222,19 @@ use common\components\LanguageHelpers;
                     <div class="form-group">
                         <label><?= LanguageHelpers::loadLanguage('username','Tên đăng nhập') ?></label>
                         <span class="">
-                            <input name="username" type="text" id="username" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('username','Tên đăng nhập') ?>">
+                            <input name="username_sigup" type="text" id="username_sigup" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('username','Tên đăng nhập') ?>">
                         </span>
                     </div>
                     <div class="form-group">
                         <label><?= LanguageHelpers::loadLanguage('password','Mật khẩu') ?></label>
                         <span class="">
-                            <input name="password" type="password" id="password" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('username','Tên đăng nhập') ?>">
+                            <input name="password_signup" type="password" id="password_signup" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('password','Tên đăng nhập') ?>">
                         </span>
                     </div>
                     <div class="form-group">
                         <label><?= LanguageHelpers::loadLanguage('re_password','Nhập lại mật khẩu') ?></label>
                         <span class="">
-                            <input name="re_password" type="password" id="re_password" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('re_password','Nhập lại mật khẩu') ?>">
+                            <input name="re_password_signup" type="password" id="re_password_signup" class="form-control" placeholder="<?= LanguageHelpers::loadLanguage('re_password','Nhập lại mật khẩu') ?>">
                         </span>
                     </div>
                 </div>
@@ -242,7 +246,7 @@ use common\components\LanguageHelpers;
                         <a href="javascript:void (0);" style="text-decoration:underline;" onclick="$('#signUp').modal('hide');$('#login').modal('show');" ><?= LanguageHelpers::loadLanguage("login_now",'Đăng nhập ngay.') ?></a>
                     </div>
                     <div class="col-lg-12">
-                        <button class="btn btn-success" style="width: -webkit-fill-available"><?= LanguageHelpers::loadLanguage("login",'Đăng nhập') ?></button>
+                        <button class="btn btn-success" style="width: -webkit-fill-available" onclick="signUp()"><?= LanguageHelpers::loadLanguage("signUp",'Đăng ký') ?></button>
                     </div>
                 </div>
             </div>

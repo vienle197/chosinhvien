@@ -150,3 +150,60 @@ var popupNotify = function (title,mess) {
   $('#contentPopup').html(mess);
   $('#popupNotify').modal();
 };
+var login = function () {
+  var username = $('#username').val();
+  var password = $('#password').val();
+  $.ajax({
+    url: '/service/login/login',
+    method: "POST",
+    data: {
+      username: username,
+      password: password,
+    },
+    dataType: "json",
+    loading : true,
+    success: function (result) {
+      if(result.success){
+          window.location.reload(true);
+      }else {
+        popupNotify('Fail', result.message)
+      }
+    }
+  });
+};
+
+var signUp = function () {
+  var username = $('#username_sigup').val();
+  var password = $('#password_signup').val();
+  var re_password = $('#re_password_signup').val();
+  if(re_password !== password){
+    return popupNotify("Lỗi","Nhập lại mật khẩu không đúng");
+  }
+  var first_name = $('#first_name').val();
+  var last_name = $('#last_name').val();
+  var email = $('#email').val();
+  var phone = $('#phone').val();
+
+  $.ajax({
+    url: '/service/login/signup',
+    method: "POST",
+    data: {
+      username: username,
+      password_hash: password,
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      phone: phone,
+    },
+    dataType: "json",
+    loading : true,
+    success: function (result) {
+      if(result.success){
+        popupNotify('thành công', "Đăng ký thành công.");
+        window.location.reload(true);
+      }else {
+        popupNotify('Fail', result.message)
+      }
+    }
+  });
+};

@@ -39,6 +39,7 @@ var addtocart = function (type) {
             quantity: quantity,
         },
         dataType: "json",
+        loading : true,
         success: function (result) {
             if(result.success){
                 if(type == 'cart'){

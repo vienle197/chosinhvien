@@ -18,8 +18,8 @@ use Yii;
  * @property string $phone
  * @property int $status
  * @property int $last_order_at
- * @property int $created_at
- * @property int $updated_at
+ * @property string $created_at
+ * @property string $updated_at
  *
  * @property Address[] $addresses
  * @property Cart[] $carts
@@ -41,8 +41,9 @@ class Customer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'username', 'auth_key', 'password_hash', 'email', 'phone', 'last_order_at', 'created_at', 'updated_at'], 'required'],
-            [['status', 'last_order_at', 'created_at', 'updated_at'], 'integer'],
+            [['first_name', 'last_name', 'username', 'password_hash', 'email', 'phone', 'created_at', 'updated_at'], 'required'],
+            [['status', 'last_order_at'], 'integer'],
+            [['created_at', 'updated_at'], 'safe'],
             [['first_name', 'last_name', 'username', 'password_hash', 'password_reset_token', 'email', 'phone'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['first_name'], 'unique'],
