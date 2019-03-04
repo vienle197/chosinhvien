@@ -11,5 +11,8 @@ return [
         'cart' => 'home/cart',
         'cart.html' => 'home/cart',
         'checkout.html' => 'home/checkout',
+        'search.html' => 'home/search',
+        'search' => 'home/search',
+        'search/' => 'home/search',
     ]
 ];

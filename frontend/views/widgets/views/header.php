@@ -50,9 +50,9 @@ use common\components\LanguageHelpers;
 
                 <!-- Search -->
                 <div class="header-search">
-                    <form>
-                        <input class="input search-input" type="text" placeholder="Enter your keyword">
-                        <select class="input search-categories">
+                    <form action="/search.html" method="get">
+                        <input class="input search-input" type="text" name="keyword" placeholder="Enter your keyword">
+                        <select class="input search-categories" name="category_id">
                             <option value="0">All Categories</option>
                             <?php
                             foreach ($cateSearch as $category){

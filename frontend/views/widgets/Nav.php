@@ -9,12 +9,18 @@
 namespace frontend\views\widgets;
 
 
+use common\models\db\Category;
 use yii\base\Widget;
 
 class Nav extends Widget
 {
     public function run()
     {
-        return $this->render('nav');
+        $cates = Category::find()->where([
+            'active' => 1
+        ])->limit(8)->orderBy("parent_id")->all();
+        return $this->render('nav',[
+            'cates' => $cates
+        ]);
     }
 }
