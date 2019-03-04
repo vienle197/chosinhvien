@@ -108,7 +108,7 @@ class LoginController extends ServiceController
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        return $this->response(true,'logout success!');
     }
 
     /**

@@ -15,6 +15,7 @@ use Yii;
  * @property int $created_at
  * @property int $updated_at
  * @property int $active
+ * @property int $quantity
  *
  * @property Order $order
  * @property Product $product
@@ -35,7 +36,7 @@ class OrderItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'product_id', 'created_at', 'updated_at', 'active'], 'integer'],
+            [['order_id', 'product_id', 'created_at', 'updated_at', 'active', 'quantity'], 'integer'],
             [['price_amount', 'final_price_amount'], 'number'],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order_id' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
@@ -56,6 +57,7 @@ class OrderItem extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'active' => 'Active',
+            'quantity' => 'Quantity',
         ];
     }
 

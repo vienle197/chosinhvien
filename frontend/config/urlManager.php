@@ -9,6 +9,7 @@ return [
         'index.html' => 'home/index',
         'cart/<type:\w*>' => 'home/cart',
         'cart' => 'home/cart',
-        'checkout.api.nganluong.post.php' => 'service/service/hung-nl',
+        'cart.html' => 'home/cart',
+        'checkout.html' => 'home/checkout',
     ]
 ];

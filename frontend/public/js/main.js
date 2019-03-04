@@ -145,9 +145,17 @@
   }
 
 })(jQuery);
-var popupNotify = function (title,mess) {
+var popupNotify = function (title,mess,action=null) {
   $('#titlePopup').html(title);
   $('#contentPopup').html(mess);
+  if(action){
+    $('.btnnotify').css("display",'none');
+    $('.btnconfirm').removeAttr("style");
+    $('#btnOk').attr('onclick',"window.location.assign('"+action+"')");
+  }else {
+    $('.btnnotify').removeAttr("style");
+    $('.btnconfirm').css("display",'none');
+  }
   $('#popupNotify').modal();
 };
 var login = function () {
@@ -207,3 +215,127 @@ var signUp = function () {
     }
   });
 };
+
+var logout = function () {
+  $.ajax({
+    url: '/service/login/logout',
+    method: "POST",
+    success: function (result) {
+      window.location.reload(true);
+    }
+  });
+};
+
+var showMoney = function (total) {
+  var str_total = total.toString();
+  var textRes = "";
+  var count = 0;
+  for(var ind = str_total.length-1; ind >= 0 ; ind --){
+    if(count == 3){
+      textRes = str_total[ind]+"."+textRes;
+      count = 0;
+    }else {
+      textRes = str_total[ind]+textRes;
+    }
+    count ++;
+  }
+  return '₫'+textRes;
+};
+var loadShow = function (type = "show") {
+  $('.loading').css('display',type == 'show' ? 'block' : 'none');
+};
+$('#city_id').on('change', function (x) {
+  var city_id = $('#city_id').val();
+  if (city_id == "") {
+    return;
+  }
+  var district = $.grep(districts, function (item, i) {
+    return item.city_id == city_id;
+  });
+  var html = '<option value="0">-- Chọn quận huyện</option>';
+  $.each(district, function (index, item) {
+    html += '<option value="' + item.id + '">' + item.district_name + '</option>';
+  });
+  $('#district_id').html(html);
+});
+$('#district_id').on('change', function (x) {
+  var district_id = $('#district_id').val();
+  if (district_id == "") {
+    return;
+  }
+  var ward = $.grep(wards, function (item, i) {
+    return item.district_id == district_id;
+  });
+  var html = '<option value="0">-- Chọn phường xã</option>';
+  $.each(ward, function (index, item) {
+    html += '<option value="' + item.id + '">' + item.wards_name + '</option>';
+  });
+  $('#ward_id').html(html);
+});
+
+var addAddress = function () {
+  var first_name = $('#first_name_address').val();
+  var last_name = $('#last_name_address').val();
+  var email = $('#email_address').val();
+  var phone = $('#phone_address').val();
+  var city_id = $('#city_id').val();
+  var district_id = $('#district_id').val();
+  var ward_id = $('#ward_id').val();
+  var address = $('#address').val();
+  if ($('#is_default').is(":checked"))
+  {
+    var is_default = 1;
+  }
+  if(!first_name || !last_name || !email || !phone || !city_id || !district_id || !ward_id || !address){
+    return popupNotify("Lỗi","Vui lòng nhập đủ các trường!");
+  }
+  loadShow();
+  $.ajax({
+    url: '/service/account/add-address',
+    method: "POST",
+    data: {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      phone: phone,
+      city_id: city_id,
+      district_id: district_id,
+      ward_id: ward_id,
+      address: address,
+      is_default: is_default == 'on' ? 1 : 0,
+    },
+    success: function (result) {
+      window.location.reload(true);
+    }
+  });
+
+};
+var createOrder = function () {
+  var address_id = $("input[name=address_id]:checked"). val();
+  if(!address_id){
+    return popupNotify("Lỗi","Vui lòng chọn địa chỉ nhận hàng!");
+  }
+  loadShow();
+  $.ajax({
+    url: '/service/item/create-order',
+    method: "POST",
+    data: {
+      address_id: address_id,
+    },
+    success: function (result) {
+      if(result.success){
+        popupNotify('Thành công', result.message,'/');
+      }else {
+        popupNotify('Fail', result.message);
+      }
+    }
+  });
+};
+$('input[name=address_id]').on('change', function (x) {
+  var address_id = $("input[name=address_id]:checked"). val();
+  var city_id = $('#city_id_'+address_id).val();
+  var amount = parseInt($('#total_amount').val());
+  var fee = city_id == 1 ? 0 : 20000;
+  $('#shippingfee').html(showMoney(fee));
+  $('#final_total_amount').html(showMoney(fee+amount));
+});

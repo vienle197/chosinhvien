@@ -115,8 +115,8 @@ AppAsset::register($this);
                 <div class="product-btns">
                     <button class="main-btn icon-btn" data-dismiss="modal"><i class="fa fa-close"></i></button>
                     <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                    <button class="primary-btn add-to-cart" onclick="addtocart('buynow')"><i class="fa fa-shopping-cart"></i> <?= LanguageHelpers::loadLanguage("add-to-cart","Cho vào giỏ") ?></button>
-                    <button class="primary-btn add-to-cart" onclick="addtocart('cart')" style="background: green"><i class="fa fa-shopping-cart"></i> <?= LanguageHelpers::loadLanguage("buy-now","Mua ngay") ?></button>
+                    <button class="primary-btn add-to-cart" onclick="addtocart('cart')"><i class="fa fa-shopping-cart"></i> <?= LanguageHelpers::loadLanguage("add-to-cart","Cho vào giỏ") ?></button>
+                    <button class="primary-btn add-to-cart" onclick="addtocart('buynow')" style="background: green"><i class="fa fa-shopping-cart"></i> <?= LanguageHelpers::loadLanguage("buy-now","Mua ngay") ?></button>
                 </div>
             </div>
         </div>
@@ -138,7 +138,9 @@ AppAsset::register($this);
             </div>
             <div class="modal-footer">
                 <div class="product-btns">
-                    <button class="main-btn icon-btn" data-dismiss="modal">Ok</button>
+                    <button class="main-btn icon-btn btnnotify" data-dismiss="modal"><i class="fa fa-check"></i>Ok</button>
+                    <button class="main-btn icon-btn btnconfirm" id="btnclose" data-dismiss="modal"><i class="fa fa-close"></i>Close</button>
+                    <button class="main-btn icon-btn btnconfirm" id="btnOk" href="#"><i class="fa fa-check"></i>Ok</button>
                 </div>
             </div>
         </div>

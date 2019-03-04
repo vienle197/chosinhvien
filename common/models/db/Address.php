@@ -15,10 +15,12 @@ use Yii;
  * @property int $ward_id
  * @property int $district_id
  * @property int $city_id
+ * @property string $phone
+ * @property string $address
  * @property int $is_default
  * @property int $status
- * @property int $created_at
- * @property int $updated_at
+ * @property string $created_at
+ * @property string $updated_at
  *
  * @property Customer $customer
  * @property SystemCity $city
@@ -41,9 +43,10 @@ class Address extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['customer_id', 'ward_id', 'district_id', 'city_id', 'is_default', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
-            [['first_name', 'last_name', 'email'], 'string', 'max' => 255],
+            [['customer_id', 'ward_id', 'district_id', 'city_id', 'is_default', 'status'], 'integer'],
+            [['first_name', 'last_name', 'email', 'phone', 'address', 'created_at', 'updated_at'], 'required'],
+            [['created_at', 'updated_at'], 'safe'],
+            [['first_name', 'last_name', 'email', 'phone', 'address'], 'string', 'max' => 255],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
             [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => SystemCity::className(), 'targetAttribute' => ['city_id' => 'id']],
             [['district_id'], 'exist', 'skipOnError' => true, 'targetClass' => SystemDistrict::className(), 'targetAttribute' => ['district_id' => 'id']],
@@ -65,6 +68,8 @@ class Address extends \yii\db\ActiveRecord
             'ward_id' => 'Ward ID',
             'district_id' => 'District ID',
             'city_id' => 'City ID',
+            'phone' => 'Phone',
+            'address' => 'Address',
             'is_default' => 'Is Default',
             'status' => 'Status',
             'created_at' => 'Created At',
