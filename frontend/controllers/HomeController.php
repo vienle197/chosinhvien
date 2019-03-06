@@ -12,6 +12,7 @@ namespace frontend\controllers;
 use common\models\db\Address;
 use common\models\db\Cart;
 use common\models\db\Category;
+use common\models\db\Customer;
 use common\models\db\Product;
 use common\models\db\SystemCity;
 use common\models\db\SystemDistrict;
@@ -136,5 +137,19 @@ class HomeController extends Controller
         $total = $count->count();
         $products =     $products->limit($limit)->offset(($page - 1) * $limit)->all();
         return $this->render('search',['products'=>$products,'total' => $total]);
+    }
+    public function actionMyAccount(){
+        /** @var Customer $user */
+        $user = \Yii::$app->user->getIdentity();
+        if(!$user){
+            return $this->goHome();
+        }
+        $ListAddress = Address::find()
+            ->with(['city','district','ward'])
+            ->where(['customer_id' => $user->id,'status' => 1])->all();
+        return $this->render('account',[
+            'customer' => $user,
+            'list_address' => $ListAddress,
+        ]);
     }
 }

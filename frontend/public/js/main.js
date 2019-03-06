@@ -339,3 +339,20 @@ $('input[name=address_id]').on('change', function (x) {
   $('#shippingfee').html(showMoney(fee));
   $('#final_total_amount').html(showMoney(fee+amount));
 });
+
+var edit_account = function () {
+  $('#first_name_edit').removeAttr('disabled');
+  $('#first_name_edit').focus();
+  $('#last_name_edit').removeAttr('disabled');
+  $('#email_edit').removeAttr('disabled');
+  $('#phone_edit').removeAttr('disabled');
+  $('#group_btn').css('display','block');
+};
+
+var hide_edit = function () {
+  $('#first_name_edit').attr('disabled',true);
+  $('#last_name_edit').attr('disabled',true);
+  $('#email_edit').attr('disabled',true);
+  $('#phone_edit').attr('disabled',true);
+  $('#group_btn').css('display','none');
+};

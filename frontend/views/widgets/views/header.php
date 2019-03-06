@@ -80,10 +80,8 @@ use common\components\LanguageHelpers;
                         <?php }else{?>
                             <span><?= LanguageHelpers::loadLanguage("Hello_account" , "Xin chào!") ?></span>
                             <ul class="custom-menu" style="display: <?= Yii::$app->user->isGuest ? 'none' : 'block' ?>">
-                                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                                <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                                <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                                <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+                                <li><a href="/my-account.html"><i class="fa fa-user-o"></i><?= LanguageHelpers::loadLanguage("my_account" , "Tài khoản") ?></a></li>
+                                <li><a href="#"><i class="fa fa-first-order"></i><?= LanguageHelpers::loadLanguage("my_order" , "Đơn hàng!") ?></a></li>
                                 <li><a href="javascript:void ();" onclick="logout()"><i class="fa fa-unlock-alt"></i> Log Out</a></li>
                             </ul>
                         <?php }?>
