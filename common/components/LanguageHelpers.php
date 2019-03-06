@@ -23,6 +23,7 @@ class LanguageHelpers
                 $lang->language_code = $language;
                 $lang->resource = $key;
                 $lang->value = $default;
+                $lang->active = 1;
                 $lang->save(0);
             }
             $text = $lang->value;

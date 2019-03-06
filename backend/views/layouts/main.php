@@ -41,18 +41,18 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Home', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/site/index']],
-        ['label' => 'Product', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/products/index']],
-        ['label' => 'Category', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/categories/index']],
-        ['label' => 'Image', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/images/index']],
-        ['label' => 'Promotion', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/promotions/index']],
-        ['label' => 'Manufacturer', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/manufacturer/index']],
-        ['label' => 'Merchant', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/merchant/index']],
-    ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems = [
+            ['label' => 'Home', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/site/index']],
+            ['label' => 'Category', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/category/index']],
+            ['label' => 'Manufacturer', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/manufacturer/index']],
+            ['label' => 'Merchant', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/merchant/index']],
+            ['label' => 'Product', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/product/index']],
+            ['label' => 'Language', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/language/index']],
+            ['label' => 'User', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/user/index']],
+        ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

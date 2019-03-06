@@ -16,7 +16,7 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'MerchantName',
+        'attribute'=>'name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

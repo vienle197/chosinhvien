@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\db\Merchant;
+use common\models\db\Language;
 
 /**
- * MerchantSearch represents the model behind the search form about `common\models\db\Merchant`.
+ * LanguageSearch represents the model behind the search form about `common\models\db\Language`.
  */
-class MerchantSearch extends Merchant
+class LanguageSearch extends Language
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class MerchantSearch extends Merchant
     {
         return [
             [['id', 'active'], 'integer'],
-            [['name', 'note'], 'safe'],
+            [['language_code', 'resource', 'value'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class MerchantSearch extends Merchant
      */
     public function search($params)
     {
-        $query = Merchant::find();
+        $query = Language::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -60,8 +60,9 @@ class MerchantSearch extends Merchant
             'active' => $this->active,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'note', $this->note]);
+        $query->andFilterWhere(['like', 'language_code', $this->language_code])
+            ->andFilterWhere(['like', 'resource', $this->resource])
+            ->andFilterWhere(['like', 'value', $this->value]);
 
         return $dataProvider;
     }

@@ -3,16 +3,17 @@
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\db\Manufacturer */
+/* @var $model common\models\db\Language */
 ?>
-<div class="manufacturer-view">
+<div class="language-view">
  
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
-            'note',
+            'language_code',
+            'resource:ntext',
+            'value:ntext',
             'active',
         ],
     ]) ?>

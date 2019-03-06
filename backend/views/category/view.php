@@ -3,17 +3,22 @@
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\db\Manufacturer */
+/* @var $model common\models\db\Category */
 ?>
-<div class="manufacturer-view">
+<div class="category-view">
  
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
             'name',
-            'note',
+            'origin_name',
+            'parent_id',
+            'description',
             'active',
+            'meta_keywords',
+            'meta_description',
+            'meta_title',
         ],
     ]) ?>
 

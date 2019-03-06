@@ -19,7 +19,7 @@ class ManufacturerSearch extends Manufacturer
     {
         return [
             [['id', 'active'], 'integer'],
-            [['ManufacturerName', 'Note'], 'safe'],
+            [['name', 'note'], 'safe'],
         ];
     }
 
@@ -60,8 +60,8 @@ class ManufacturerSearch extends Manufacturer
             'active' => $this->active,
         ]);
 
-        $query->andFilterWhere(['like', 'ManufacturerName', $this->ManufacturerName])
-            ->andFilterWhere(['like', 'Note', $this->Note]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'note', $this->note]);
 
         return $dataProvider;
     }

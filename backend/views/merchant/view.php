@@ -11,7 +11,7 @@ use yii\widgets\DetailView;
         'model' => $model,
         'attributes' => [
             'id',
-            'MerchantName',
+            'name',
             'note',
             'active',
         ],

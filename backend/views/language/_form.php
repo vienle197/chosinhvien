@@ -3,17 +3,19 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\db\Manufacturer */
+/* @var $model common\models\db\Language */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="manufacturer-form">
+<div class="language-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'language_code')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'note')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'resource')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'value')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'active')->textInput() ?>
 

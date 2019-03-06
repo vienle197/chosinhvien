@@ -16,16 +16,52 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'name',
+        'attribute'=>'first_name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'note',
+        'attribute'=>'last_name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'active',
+        'attribute'=>'username',
     ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'auth_key',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'password_hash',
+    ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'password_reset_token',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'email',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'phone',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'status',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'last_order_at',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'created_at',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'updated_at',
+    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

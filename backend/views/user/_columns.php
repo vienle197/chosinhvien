@@ -16,16 +16,36 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'name',
+        'attribute'=>'username',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'note',
+        'attribute'=>'auth_key',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'active',
+        'attribute'=>'password_hash',
     ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'password_reset_token',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'email',
+    ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'status',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'created_at',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'updated_at',
+    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

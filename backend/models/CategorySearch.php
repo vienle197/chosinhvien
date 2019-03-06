@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\db\Merchant;
+use common\models\db\Category;
 
 /**
- * MerchantSearch represents the model behind the search form about `common\models\db\Merchant`.
+ * CategorySearch represents the model behind the search form about `common\models\db\Category`.
  */
-class MerchantSearch extends Merchant
+class CategorySearch extends Category
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class MerchantSearch extends Merchant
     public function rules()
     {
         return [
-            [['id', 'active'], 'integer'],
-            [['name', 'note'], 'safe'],
+            [['id', 'parent_id', 'active'], 'integer'],
+            [['name', 'origin_name', 'description', 'meta_keywords', 'meta_description', 'meta_title'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class MerchantSearch extends Merchant
      */
     public function search($params)
     {
-        $query = Merchant::find();
+        $query = Category::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,11 +57,16 @@ class MerchantSearch extends Merchant
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'parent_id' => $this->parent_id,
             'active' => $this->active,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'note', $this->note]);
+            ->andFilterWhere(['like', 'origin_name', $this->origin_name])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'meta_keywords', $this->meta_keywords])
+            ->andFilterWhere(['like', 'meta_description', $this->meta_description])
+            ->andFilterWhere(['like', 'meta_title', $this->meta_title]);
 
         return $dataProvider;
     }

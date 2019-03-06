@@ -20,12 +20,32 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'note',
+        'attribute'=>'origin_name',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'parent_id',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'description',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'active',
     ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'meta_keywords',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'meta_description',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'meta_title',
+    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

@@ -16,11 +16,15 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'name',
+        'attribute'=>'language_code',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'note',
+        'attribute'=>'resource',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'value',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

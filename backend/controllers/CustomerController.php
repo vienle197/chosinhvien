@@ -3,8 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\db\Manufacturer;
-use backend\models\ManufacturerSearch;
+use common\models\db\Customer;
+use backend\models\CustomerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,9 +12,9 @@ use \yii\web\Response;
 use yii\helpers\Html;
 
 /**
- * ManufacturerController implements the CRUD actions for Manufacturer model.
+ * CustomerController implements the CRUD actions for Customer model.
  */
-class ManufacturerController extends Controller
+class CustomerController extends Controller
 {
     /**
      * @inheritdoc
@@ -33,12 +33,12 @@ class ManufacturerController extends Controller
     }
 
     /**
-     * Lists all Manufacturer models.
+     * Lists all Customer models.
      * @return mixed
      */
     public function actionIndex()
     {    
-        $searchModel = new ManufacturerSearch();
+        $searchModel = new CustomerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +49,7 @@ class ManufacturerController extends Controller
 
 
     /**
-     * Displays a single Manufacturer model.
+     * Displays a single Customer model.
      * @param integer $id
      * @return mixed
      */
@@ -59,7 +59,7 @@ class ManufacturerController extends Controller
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Manufacturer #".$id,
+                    'title'=> "Customer #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -74,7 +74,7 @@ class ManufacturerController extends Controller
     }
 
     /**
-     * Creates a new Manufacturer model.
+     * Creates a new Customer model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -82,7 +82,7 @@ class ManufacturerController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Manufacturer();  
+        $model = new Customer();  
 
         if($request->isAjax){
             /*
@@ -91,7 +91,7 @@ class ManufacturerController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new Manufacturer",
+                    'title'=> "Create new Customer",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -102,15 +102,15 @@ class ManufacturerController extends Controller
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new Manufacturer",
-                    'content'=>'<span class="text-success">Create Manufacturer success</span>',
+                    'title'=> "Create new Customer",
+                    'content'=>'<span class="text-success">Create Customer success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
         
                 ];         
             }else{           
                 return [
-                    'title'=> "Create new Manufacturer",
+                    'title'=> "Create new Customer",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -135,7 +135,7 @@ class ManufacturerController extends Controller
     }
 
     /**
-     * Updates an existing Manufacturer model.
+     * Updates an existing Customer model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -153,7 +153,7 @@ class ManufacturerController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update Manufacturer #".$id,
+                    'title'=> "Update Customer #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -163,7 +163,7 @@ class ManufacturerController extends Controller
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Manufacturer #".$id,
+                    'title'=> "Customer #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -172,7 +172,7 @@ class ManufacturerController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update Manufacturer #".$id,
+                    'title'=> "Update Customer #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -195,7 +195,7 @@ class ManufacturerController extends Controller
     }
 
     /**
-     * Delete an existing Manufacturer model.
+     * Delete an existing Customer model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -223,7 +223,7 @@ class ManufacturerController extends Controller
     }
 
      /**
-     * Delete multiple existing Manufacturer model.
+     * Delete multiple existing Customer model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -254,15 +254,15 @@ class ManufacturerController extends Controller
     }
 
     /**
-     * Finds the Manufacturer model based on its primary key value.
+     * Finds the Customer model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Manufacturer the loaded model
+     * @return Customer the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Manufacturer::findOne($id)) !== null) {
+        if (($model = Customer::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
