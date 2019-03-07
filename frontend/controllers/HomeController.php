@@ -28,7 +28,7 @@ class HomeController extends Controller
         $user = \Yii::$app->user->getIdentity();
         if (!$user) {
             \Yii::$app->session->set('quantity_cart', 0);
-            return $this->redirect("/");
+//            return $this->redirect("/");
         } else {
             $quantity = Cart::find()->where(['customer_id' => $user->getId(), 'active' => 1])
                 ->count();
