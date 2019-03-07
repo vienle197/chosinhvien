@@ -24,7 +24,7 @@ use common\components\LanguageHelpers;
             <div class="pull-right">
                 <ul class="header-top-links">
                     <li class="dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">ENG <i class="fa fa-caret-down"></i></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">VI <i class="fa fa-caret-down"></i></a>
                         <ul class="custom-menu">
                             <li><a href="#">Tiếng Việt (vi-VN)</a></li>
                             <li><a href="#">English (en-US)</a></li>
@@ -43,7 +43,7 @@ use common\components\LanguageHelpers;
                 <!-- Logo -->
                 <div class="header-logo">
                     <a class="logo" href="/">
-                        <img src="/img/logo.png" alt="">
+                        <img src="<?= LanguageHelpers::loadLanguage('logo_img','/img/logo.png') ?>" alt="">
                     </a>
                 </div>
                 <!-- /Logo -->
@@ -53,7 +53,7 @@ use common\components\LanguageHelpers;
                     <form action="/search.html" method="get">
                         <input class="input search-input" type="text" name="keyword" placeholder="Enter your keyword">
                         <select class="input search-categories" name="category_id">
-                            <option value="0">All Categories</option>
+                            <option value="0"><?= LanguageHelpers::loadLanguage('all_cate','Tất cả danh mục') ?></option>
                             <?php
                             foreach ($cateSearch as $category){
                                 echo "<option value='$category->id'>$category->name</option>";

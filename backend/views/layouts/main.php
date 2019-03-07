@@ -51,6 +51,7 @@ AppAsset::register($this);
             ['label' => 'Merchant', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/merchant/index']],
             ['label' => 'Product', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/product/index']],
             ['label' => 'Language', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/language/index']],
+            ['label' => 'Image', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/image/index']],
             ['label' => 'User', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/user/index']],
         ];
         $menuItems[] = '<li>'

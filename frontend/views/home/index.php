@@ -9,8 +9,12 @@ use frontend\views\widgets\ProductSingle;
  * @var \common\models\db\Product[] $product_hot_sale
  */
 
-$topPro = $product_hot_sale[0];
-unset($product_hot_sale[0]);
+if(isset($product_hot_sale[0])){
+    $topPro = $product_hot_sale[0];
+    unset($product_hot_sale[0]);
+}else{
+    $topPro= new \common\models\db\Product();
+}
 ?>
 
 <script>

@@ -1,27 +1,32 @@
 <?php
+
+use common\models\db\Category;
+use common\models\db\Manufacturer;
+use common\models\db\Merchant;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\db\Product */
+/* @var $model \backend\models\Product */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="product-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'sku')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
+    <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(Category::find()->all(), 'id', 'name'), ['prompt'=>'Select Category']) ?>
 
     <?= $form->field($model, 'parent_sku')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'manufacturer_id')->textInput() ?>
+    <?= $form->field($model, 'manufacturer_id')->dropDownList(ArrayHelper::map(Manufacturer::find()->all(), 'id', 'name'), ['prompt'=>'Select Manufacturer']) ?>
 
-    <?= $form->field($model, 'merchant_id')->textInput() ?>
+    <?= $form->field($model, 'merchant_id')->dropDownList(ArrayHelper::map(Merchant::find()->all(), 'id', 'name'), ['prompt'=>'Select Merchant']) ?>
 
     <?= $form->field($model, 'stock_quantity')->textInput() ?>
 
@@ -51,7 +56,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'imageFile')->fileInput() ?>
 
     <?= $form->field($model, 'sale_percent')->textInput(['maxlength' => true]) ?>
 

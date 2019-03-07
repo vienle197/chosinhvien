@@ -2,14 +2,17 @@
 
 namespace backend\controllers;
 
+use common\models\db\Image;
 use Yii;
-use common\models\db\Product;
+use backend\models\Product;
+use common\models\db\Product as DbProduct;
 use backend\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\web\UploadedFile;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -99,15 +102,43 @@ class ProductController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
-                return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new Product",
-                    'content'=>'<span class="text-success">Create Product success</span>',
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
-        
-                ];         
+            }else if($request->isPost){
+                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                if ($model-> image = $model->upload()) {
+                    // file is uploaded successfully
+                    $model->setAttributes($request->post("Product",null));
+                    if($model->save()){
+                        $image = new Image();
+                        $image->url = $model->image;
+                        $image->product_id = $model->id;
+                        $image->created_at = time();
+                        $image->updated_at = time();
+                        $image->save(0);
+                        return [
+                            'forceReload'=>'#crud-datatable-pjax',
+                            'title'=> "Create new Product",
+                            'content'=>'<span class="text-success">Create Product success</span>',
+                            'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+
+                        ];
+                    }else{
+//                        print_r($model->errors);
+//                        die;
+                    }
+                }else{
+//                    print_r($model->errors);
+//                    print_r($model);
+//                    die;
+                    return [
+                        'forceReload'=>'#crud-datatable-pjax',
+                        'title'=> "Create new Product",
+                        'content'=>'<span class="text-success">Create Product Faild</span>',
+                        'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Create Again',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+
+                    ];
+                }
             }else{           
                 return [
                     'title'=> "Create new Product",
@@ -159,17 +190,43 @@ class ProductController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];         
-            }else if($model->load($request->post()) && $model->save()){
-                return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Product #".$id,
-                    'content'=>$this->renderAjax('view', [
-                        'model' => $model,
-                    ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
-                ];    
+                ];
+            }else if($request->isPost){
+                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                if ($model-> image = $model->upload()) {
+                    // file is uploaded successfully
+                    $model->setAttributes($request->post("Product",null));
+                    if($model->save()){
+                        $image = new Image();
+                        $image->url = $model->image;
+                        $image->product_id = $model->id;
+                        $image->created_at = time();
+                        $image->updated_at = time();
+                        $image->save(0);
+                        return [
+                            'forceReload'=>'#crud-datatable-pjax',
+                            'title'=> "Product #".$id,
+                            'content'=>$this->renderAjax('view', [
+                                'model' => $model,
+                            ]),
+                            'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                        ];
+                    }else{
+//                        print_r($model->errors);
+//                        die;
+                    }
+                }else{
+//                    print_r($model->errors);
+//                    print_r($model);
+//                    die;
+                    return [
+                        'forceReload'=>'#crud-datatable-pjax',
+                        'title'=> "Create new Product",
+                        'content'=>'<span class="text-success">Update Product Faild</span>',
+                        'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"])
+                    ];
+                }
             }else{
                  return [
                     'title'=> "Update Product #".$id,

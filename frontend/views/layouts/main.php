@@ -46,7 +46,7 @@ AppAsset::register($this);
                 <div class="product row">
                     <div class="col-md-4">
                         <div class="img-thumbnail">
-                            <img src="https://lorempixel.com/270/360/">
+                            <img src="#">
                         </div>
                     </div>
                     <div class="col-md-offset-1 col-md-7">

@@ -15,6 +15,11 @@ use Yii;
  * @property int $created_at
  * @property int $updated_at
  * @property int $active
+ * @property int $post_id
+ * @property string $type
+ * @property string $link_page
+ * @property string $title
+ * @property string $description
  */
 class Image extends \yii\db\ActiveRecord
 {
@@ -32,8 +37,8 @@ class Image extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product_id', 'category_id', 'customer_id', 'created_at', 'updated_at', 'active'], 'integer'],
-            [['url'], 'string', 'max' => 255],
+            [['product_id', 'category_id', 'customer_id', 'created_at', 'updated_at', 'active', 'post_id'], 'integer'],
+            [['url', 'type', 'link_page', 'title', 'description'], 'string', 'max' => 255],
         ];
     }
 
@@ -51,6 +56,11 @@ class Image extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'active' => 'Active',
+            'post_id' => 'Post ID',
+            'type' => 'Type',
+            'link_page' => 'Link Page',
+            'title' => 'Title',
+            'description' => 'Description',
         ];
     }
 }
