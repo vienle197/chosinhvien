@@ -83,8 +83,8 @@ class ImageController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Image();  
-
+        $model = new Image();
+        $model->active = 1;
         if($request->isAjax){
             /*
             *   Process for ajax request
@@ -104,7 +104,7 @@ class ImageController extends Controller
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if ($model->url = $model->upload()) {
                 // file is uploaded successfully
-                $model->setAttributes($request->post("Product",null));
+                $model->setAttributes($request->post("Image",null));
                 if($model->save()){
                     return [
                         'forceReload'=>'#crud-datatable-pjax',

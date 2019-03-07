@@ -6,6 +6,9 @@ use frontend\views\widgets\ProductSingle;
  * @var \common\models\db\Category[] $cateSearch
  * @var \common\models\db\Category[] $cates
  * @var \common\models\db\Product[] $product_hot
+ * @var \common\models\db\Image[] $image_slider
+ * @var \common\models\db\Image[] $image_block3
+ * @var \common\models\db\Image[] $image_block3_2
  * @var \common\models\db\Product[] $product_hot_sale
  */
 
@@ -61,36 +64,16 @@ if(isset($product_hot_sale[0])){
         <div class="home-wrap">
             <!-- home slick -->
             <div id="home-slick">
-                <!-- banner -->
-                <div class="banner banner-1">
-                    <img src="/img/banner01.jpg" alt="">
-                    <div class="banner-caption text-center">
-                        <h1>Bags sale</h1>
-                        <h3 class="white-color font-weak">Up to 50% Discount</h3>
-                        <button class="primary-btn">Shop Now</button>
+                <?php foreach ($image_slider as $imgSlider){?>
+                    <div class="banner banner-1">
+                        <img src="<?= Yii::$app->params['url_backend'].$imgSlider->url ?>" alt="">
+                        <div class="banner-caption text-center">
+                            <h1><?= $imgSlider->title ?></h1>
+                            <h3 class="white-color font-weak"><?= $imgSlider->description ?></h3>
+                            <a href="<?= $imgSlider->link_page ? $imgSlider->link_page : '#' ?>" class="primary-btn"><?= LanguageHelpers::loadLanguage("shop_now","Mua sắm ngay") ?></a>
+                        </div>
                     </div>
-                </div>
-                <!-- /banner -->
-
-                <!-- banner -->
-                <div class="banner banner-1">
-                    <img src="/img/banner02.jpg" alt="">
-                    <div class="banner-caption">
-                        <h1 class="primary-color">HOT DEAL<br><span class="white-color font-weak">Up to 50% OFF</span></h1>
-                        <button class="primary-btn">Shop Now</button>
-                    </div>
-                </div>
-                <!-- /banner -->
-
-                <!-- banner -->
-                <div class="banner banner-1">
-                    <img src="/img/banner03.jpg" alt="">
-                    <div class="banner-caption">
-                        <h1 class="white-color">New Product <span>Collection</span></h1>
-                        <button class="primary-btn">Shop Now</button>
-                    </div>
-                </div>
-                <!-- /banner -->
+                <?php } ?>
             </div>
             <!-- /home slick -->
         </div>
@@ -106,38 +89,20 @@ if(isset($product_hot_sale[0])){
     <div class="container">
         <!-- row -->
         <div class="row">
-            <!-- banner -->
-            <div class="col-md-4 col-sm-6">
-                <a class="banner banner-1" href="#">
-                    <img src="/img/banner10.jpg" alt="">
-                    <div class="banner-caption text-center">
-                        <h2 class="white-color">NEW COLLECTION</h2>
-                    </div>
-                </a>
-            </div>
-            <!-- /banner -->
-
-            <!-- banner -->
-            <div class="col-md-4 col-sm-6">
-                <a class="banner banner-1" href="#">
-                    <img src="/img/banner11.jpg" alt="">
-                    <div class="banner-caption text-center">
-                        <h2 class="white-color">NEW COLLECTION</h2>
-                    </div>
-                </a>
-            </div>
-            <!-- /banner -->
-
-            <!-- banner -->
-            <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
-                <a class="banner banner-1" href="#">
-                    <img src="/img/banner12.jpg" alt="">
-                    <div class="banner-caption text-center">
-                        <h2 class="white-color">NEW COLLECTION</h2>
-                    </div>
-                </a>
-            </div>
-            <!-- /banner -->
+            <?php foreach ($image_block3 as $key => $imgBanner){
+                if($key > 2){break;}
+                ?>
+                <!-- banner -->
+                <div class="col-md-4 col-sm-6">
+                    <a class="banner banner-1" href="<?= $imgBanner->link_page ?>">
+                        <img src="<?= Yii::$app->params['url_backend'].$imgBanner->url ?>" alt="<?= $imgBanner->description ?>">
+                        <div class="banner-caption text-center">
+                            <h2 class="white-color"><?= $imgBanner->title ?></h2>
+                        </div>
+                    </a>
+                </div>
+                <!-- /banner -->
+            <?php } ?>
 
         </div>
         <!-- /row -->
@@ -195,39 +160,20 @@ if(isset($product_hot_sale[0])){
     <div class="container">
         <!-- row -->
         <div class="row">
-            <!-- banner -->
-            <div class="col-md-8">
-                <div class="banner banner-1">
-                    <img src="/img/banner13.jpg" alt="">
-                    <div class="banner-caption text-center">
-                        <h1 class="primary-color">HOT DEAL<br><span class="white-color font-weak">Up to 50% OFF</span></h1>
-                        <button class="primary-btn">Shop Now</button>
-                    </div>
+            <?php foreach ($image_block3_2 as $key => $imgB){
+                if($key > 2){break;}
+                ?>
+                <!-- banner -->
+                <div class="<?= $key == 0 ? 'col-md-8' : 'col-md-4 col-sm-6' ?>">
+                    <a class="banner banner-1" href="<?= $imgB->link_page ?>">
+                        <img src="<?= Yii::$app->params['url_backend'].$imgB->url ?>" alt="<?= $imgB->description ?>">
+                        <div class="banner-caption text-center">
+                            <h2 class="white-color"><?= $imgB->title ?></h2>
+                        </div>
+                    </a>
                 </div>
-            </div>
-            <!-- /banner -->
-
-            <!-- banner -->
-            <div class="col-md-4 col-sm-6">
-                <a class="banner banner-1" href="#">
-                    <img src="/img/banner11.jpg" alt="">
-                    <div class="banner-caption text-center">
-                        <h2 class="white-color">NEW COLLECTION</h2>
-                    </div>
-                </a>
-            </div>
-            <!-- /banner -->
-
-            <!-- banner -->
-            <div class="col-md-4 col-sm-6">
-                <a class="banner banner-1" href="#">
-                    <img src="/img/banner12.jpg" alt="">
-                    <div class="banner-caption text-center">
-                        <h2 class="white-color">NEW COLLECTION</h2>
-                    </div>
-                </a>
-            </div>
-            <!-- /banner -->
+                <!-- /banner -->
+            <?php } ?>
         </div>
         <!-- /row -->
     </div>

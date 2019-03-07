@@ -9,6 +9,7 @@
 namespace frontend\controllers;
 
 
+use backend\models\Image;
 use common\models\db\Address;
 use common\models\db\Cart;
 use common\models\db\Category;
@@ -44,10 +45,17 @@ class HomeController extends Controller
         ])->orderBy("parent_id")->all();
         $product_hot_sale = Product::find()->where('stock_quantity > 0 and disable_buy_now = 0 ')->orderBy("sale_percent desc ,expired_time_sale_price desc")->limit(20)->all();
         $product_hot = Product::find()->where('stock_quantity > 0 and disable_buy_now = 0 ')->orderBy("sold_quantity desc")->limit(20)->all();
+
+        $image_slider = Image::find()->where(['active' => 1,'type' => Image::SLIDER])->orderBy("id desc")->all();
+        $image_block3 = Image::find()->where(['active' => 1,'type' => Image::BANNER])->limit(3)->orderBy("id desc")->all();
+        $image_block3_2 = Image::find()->where(['active' => 1,'type' => Image::BANNER_3])->limit(3)->orderBy("id desc")->all();
         return $this->render('index', [
             "cates" => $cates,
             "product_hot" => $product_hot,
             "product_hot_sale" => $product_hot_sale,
+            "image_slider" => $image_slider,
+            "image_block3" => $image_block3,
+            "image_block3_2" => $image_block3_2,
         ]);
     }
 

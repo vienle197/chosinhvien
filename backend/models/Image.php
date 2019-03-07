@@ -14,6 +14,9 @@ use yii\web\UploadedFile;
 
 class Image extends \common\models\db\Image
 {
+    const SLIDER = "SLIDER";
+    const BANNER = "BANNER";
+    const BANNER_3 = "BANNER_3";
     /**
      * @var UploadedFile
      */
@@ -21,7 +24,6 @@ class Image extends \common\models\db\Image
     public function rules()
     {
         return array_merge([
-            [['category_id', 'manufacturer_id', 'merchant_id'], 'required'],
             [['imageFile'], 'file'],
         ], parent::rules());
     }

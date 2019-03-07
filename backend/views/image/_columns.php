@@ -46,10 +46,10 @@ return [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'post_id',
     // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'type',
-    // ],
+     [
+         'class'=>'\kartik\grid\DataColumn',
+         'attribute'=>'type',
+     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'link_page',
