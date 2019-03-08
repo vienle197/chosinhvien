@@ -29,7 +29,9 @@ class Product extends \common\models\db\Product
     public function upload()
     {
         if ($this->imageFile) {
-            $fileDirPath = 'uploads/' . implode('/', str_split(TextUtility::randChar(10))) . '/';
+            $path = \Yii::getAlias('@frontend/public');
+            $filePath = 'uploads/' . implode('/', str_split(TextUtility::randChar(10))) . '/';
+            $fileDirPath = $path . '/' . $filePath;
             if (!file_exists($fileDirPath)) {
                 mkdir($fileDirPath, 0777, true);
             }

@@ -66,7 +66,7 @@ if(isset($product_hot_sale[0])){
             <div id="home-slick">
                 <?php foreach ($image_slider as $imgSlider){?>
                     <div class="banner banner-1">
-                        <img src="<?= Yii::$app->params['url_backend'].$imgSlider->url ?>" alt="">
+                        <img src="<?= $imgSlider->url ?>" alt="">
                         <div class="banner-caption text-center">
                             <h1><?= $imgSlider->title ?></h1>
                             <h3 class="white-color font-weak"><?= $imgSlider->description ?></h3>
@@ -93,9 +93,9 @@ if(isset($product_hot_sale[0])){
                 if($key > 2){break;}
                 ?>
                 <!-- banner -->
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-4 col-sm-6 col-xs-6">
                     <a class="banner banner-1" href="<?= $imgBanner->link_page ?>">
-                        <img src="<?= Yii::$app->params['url_backend'].$imgBanner->url ?>" alt="<?= $imgBanner->description ?>">
+                        <img src="<?= $imgBanner->url ?>" alt="<?= $imgBanner->description ?>">
                         <div class="banner-caption text-center">
                             <h2 class="white-color"><?= $imgBanner->title ?></h2>
                         </div>
@@ -164,9 +164,9 @@ if(isset($product_hot_sale[0])){
                 if($key > 2){break;}
                 ?>
                 <!-- banner -->
-                <div class="<?= $key == 0 ? 'col-md-8' : 'col-md-4 col-sm-6' ?>">
+                <div class="<?= $key == 0 ? 'col-md-8 col-xs-12' : 'col-md-4 col-sm-6 col-xs-6' ?>">
                     <a class="banner banner-1" href="<?= $imgB->link_page ?>">
-                        <img src="<?= Yii::$app->params['url_backend'].$imgB->url ?>" alt="<?= $imgB->description ?>">
+                        <img src="<?= $imgB->url ?>" alt="<?= $imgB->description ?>">
                         <div class="banner-caption text-center">
                             <h2 class="white-color"><?= $imgB->title ?></h2>
                         </div>

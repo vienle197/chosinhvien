@@ -3,6 +3,7 @@
 use common\models\db\Category;
 use common\models\db\Manufacturer;
 use common\models\db\Merchant;
+use dosamigos\ckeditor\CKEditor;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -60,11 +61,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sale_percent')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-    <script>
-        CKEDITOR.replace( 'Product[description]' );
-    </script>
+    <?= $form->field($model, 'description')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'document'
+    ]) ?>
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

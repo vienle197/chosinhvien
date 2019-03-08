@@ -82,8 +82,8 @@ class UserController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new User();  
-
+        $model = new User();
+        $model->status = 1;
         if($request->isAjax){
             /*
             *   Process for ajax request
@@ -99,7 +99,10 @@ class UserController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post())){
+                $model->password_hash = Yii::$app->security->generatePasswordHash($model->password_hash);
+                $model->auth_key = Yii::$app->security->generateRandomString();
+                $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new User",
@@ -144,8 +147,7 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);       
-
+        $model = $this->findModel($id);
         if($request->isAjax){
             /*
             *   Process for ajax request
@@ -161,6 +163,7 @@ class UserController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
             }else if($model->load($request->post()) && $model->save()){
+                $model->updated_at = time();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "User #".$id,

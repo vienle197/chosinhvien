@@ -9,16 +9,21 @@ use Yii;
  *
  * @property int $id
  * @property string $username
- * @property string $password_hash
- * @property string $email
- * @property string $fullname
- * @property string $avatar
- * @property string $addres
  * @property string $auth_key
+ * @property string $password_hash
  * @property string $password_reset_token
+ * @property string $email
  * @property int $status
- * @property string $created_at
- * @property string $updated_at
+ * @property int $created_at
+ * @property int $updated_at
+ * @property string $scope
+ *
+ * @property Order[] $orders
+ * @property Post[] $posts
+ * @property Post[] $posts0
+ * @property Promotion[] $promotions
+ * @property Promotion[] $promotions0
+ * @property UserRoles[] $userRoles
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -36,10 +41,13 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['status'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['username', 'email', 'fullname', 'auth_key'], 'string', 'max' => 200],
-            [['password_hash', 'avatar', 'addres', 'password_reset_token'], 'string', 'max' => 255],
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'password_hash', 'password_reset_token', 'email', 'scope'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
         ];
     }
 
@@ -51,16 +59,62 @@ class User extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'username' => 'Username',
-            'password_hash' => 'Password Hash',
-            'email' => 'Email',
-            'fullname' => 'Fullname',
-            'avatar' => 'Avatar',
-            'addres' => 'Addres',
             'auth_key' => 'Auth Key',
+            'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
+            'email' => 'Email',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'scope' => 'Scope',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrders()
+    {
+        return $this->hasMany(Order::className(), ['supported_by' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPosts()
+    {
+        return $this->hasMany(Post::className(), ['created_by' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPosts0()
+    {
+        return $this->hasMany(Post::className(), ['updated_by' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPromotions()
+    {
+        return $this->hasMany(Promotion::className(), ['created_by' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPromotions0()
+    {
+        return $this->hasMany(Promotion::className(), ['updated_by' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserRoles()
+    {
+        return $this->hasMany(UserRoles::className(), ['user_id' => 'id']);
     }
 }

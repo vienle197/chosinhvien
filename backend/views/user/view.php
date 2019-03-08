@@ -12,13 +12,14 @@ use yii\widgets\DetailView;
         'attributes' => [
             'id',
             'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
+//            'auth_key',
+//            'password_hash',
+//            'password_reset_token',
             'email:email',
             'status',
             'created_at',
             'updated_at',
+            'scope',
         ],
     ]) ?>
 

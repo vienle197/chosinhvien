@@ -18,18 +18,18 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'username',
     ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'auth_key',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'password_hash',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'password_reset_token',
-    ],
+//    [
+//        'class'=>'\kartik\grid\DataColumn',
+//        'attribute'=>'auth_key',
+//    ],
+//    [
+//        'class'=>'\kartik\grid\DataColumn',
+//        'attribute'=>'password_hash',
+//    ],
+//    [
+//        'class'=>'\kartik\grid\DataColumn',
+//        'attribute'=>'password_reset_token',
+//    ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'email',
@@ -45,6 +45,10 @@ return [
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'updated_at',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'scope',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',

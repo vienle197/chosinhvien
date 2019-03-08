@@ -31,12 +31,14 @@ class Image extends \common\models\db\Image
     public function upload()
     {
         if ($this->imageFile) {
-            $fileDirPath = 'uploads/' . implode('/', str_split(TextUtility::randChar(10))) . '/';
+            $path = \Yii::getAlias('@frontend/public');
+            $filePath = 'uploads/' . implode('/', str_split(TextUtility::randChar(10))) . '/';
+            $fileDirPath = $path . '/' . $filePath;
             if (!file_exists($fileDirPath)) {
                 mkdir($fileDirPath, 0777, true);
             }
             $this->imageFile->saveAs($fileDirPath . $this->imageFile->baseName . '.' . $this->imageFile->extension);
-            return $fileDirPath  . $this->imageFile->baseName . '.' . $this->imageFile->extension;
+            return $filePath  . $this->imageFile->baseName . '.' . $this->imageFile->extension;
         } else {
             return false;
         }

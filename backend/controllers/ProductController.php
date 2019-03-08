@@ -106,10 +106,11 @@ class ProductController extends Controller
             }else if($request->isPost){
                 $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
                 if ($model-> image = $model->upload()) {
-                    print_r($request->post());
-                    die;
                     // file is uploaded successfully
-                    $model->setAttributes($request->post("Product",null));
+                    $post = $request->post("Product",null);
+                    $time = isset($post['expired_time_sale_price']) && $post['expired_time_sale_price'] ? str_replace('T',' ',$post['expired_time_sale_price']) : "";
+                    $model->expired_time_sale_price = strtotime($time);
+                    $model->setAttributes($post);
                     if($model->save()){
                         $image = new Image();
                         $image->url = $model->image;
@@ -128,6 +129,14 @@ class ProductController extends Controller
                     }else{
 //                        print_r($model->errors);
 //                        die;
+                        return [
+                            'forceReload'=>'#crud-datatable-pjax',
+                            'title'=> "Create new Product",
+                            'content'=>'<span class="text-success">Create Product Faild</span>',
+                            'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::a('Create Again',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+
+                        ];
                     }
                 }else{
 //                    print_r($model->errors);

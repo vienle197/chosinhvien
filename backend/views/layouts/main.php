@@ -46,6 +46,7 @@ AppAsset::register($this);
     } else {
         $menuItems = [
             ['label' => 'Home', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/site/index']],
+            ['label' => 'Order', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/order/index']],
             ['label' => 'Category', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/category/index']],
             ['label' => 'Manufacturer', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/manufacturer/index']],
             ['label' => 'Merchant', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/merchant/index']],
