@@ -31,6 +31,7 @@ use Yii;
  * @property string $image
  * @property string $sale_percent
  * @property string $description
+ * @property string $type_quantity tấn, cân, ....
  *
  * @property Cart[] $carts
  * @property OrderItem[] $orderItems
@@ -55,11 +56,11 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'sku', 'stock_quantity', 'sold_quantity', 'price', 'active', 'image', 'description'], 'required'],
-            [['category_id', 'manufacturer_id', 'merchant_id', 'stock_quantity', 'sold_quantity', 'min_quantity', 'max_quantity', 'disable_buy_now', 'disable_add_to_card', 'is_pre_order', 'expired_time_sale_price', 'active'], 'integer'],
+            [['name', 'stock_quantity', 'sold_quantity', 'price', 'active', 'image', 'description'], 'required'],
+            [['category_id', 'manufacturer_id', 'merchant_id', 'stock_quantity', 'sold_quantity', 'min_quantity', 'max_quantity', 'disable_buy_now', 'disable_add_to_card', 'is_pre_order', 'active'], 'integer'],
             [['price', 'sale_price', 'sale_percent'], 'number'],
-            [['description'], 'string'],
-            [['name', 'sku', 'parent_sku', 'meta_keywords', 'meta_description', 'meta_title'], 'string', 'max' => 255],
+            [['description' , 'expired_time_sale_price'], 'string'],
+            [['name', 'sku', 'parent_sku', 'meta_keywords', 'meta_description', 'meta_title', 'type_quantity'], 'string', 'max' => 255],
             [['image'], 'string', 'max' => 500],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['manufacturer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Manufacturer::className(), 'targetAttribute' => ['manufacturer_id' => 'id']],
@@ -97,6 +98,7 @@ class Product extends \yii\db\ActiveRecord
             'image' => 'Image',
             'sale_percent' => 'Sale Percent',
             'description' => 'Description',
+            'type_quantity' => 'Type Quantity',
         ];
     }
 

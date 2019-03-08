@@ -18,8 +18,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'sku')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(Category::find()->all(), 'id', 'name'), ['prompt'=>'Select Category']) ?>
 
     <?= $form->field($model, 'parent_sku')->textInput(['maxlength' => true]) ?>
@@ -27,6 +25,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'manufacturer_id')->dropDownList(ArrayHelper::map(Manufacturer::find()->all(), 'id', 'name'), ['prompt'=>'Select Manufacturer']) ?>
 
     <?= $form->field($model, 'merchant_id')->dropDownList(ArrayHelper::map(Merchant::find()->all(), 'id', 'name'), ['prompt'=>'Select Merchant']) ?>
+
+    <?= $form->field($model, 'type_quantity')->textInput() ?>
 
     <?= $form->field($model, 'stock_quantity')->textInput() ?>
 
@@ -46,7 +46,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sale_price')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'expired_time_sale_price')->textInput() ?>
+    <?= $form->field($model, 'expired_time_sale_price')->input('datetime-local') ?>
 
     <?= $form->field($model, 'active')->textInput() ?>
 
@@ -61,6 +61,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'sale_percent')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+
+    <script>
+        CKEDITOR.replace( 'Product[description]' );
+    </script>
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

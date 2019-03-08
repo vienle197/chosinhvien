@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\components\TextUtility;
 use common\models\db\Image;
 use Yii;
 use backend\models\Product;
@@ -105,6 +106,8 @@ class ProductController extends Controller
             }else if($request->isPost){
                 $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
                 if ($model-> image = $model->upload()) {
+                    print_r($request->post());
+                    die;
                     // file is uploaded successfully
                     $model->setAttributes($request->post("Product",null));
                     if($model->save()){
@@ -197,6 +200,8 @@ class ProductController extends Controller
                     // file is uploaded successfully
                     $model->setAttributes($request->post("Product",null));
                     if($model->save()){
+                        $model->sku = TextUtility::randChar(5).$model->id;
+                        $model->save(0);
                         $image = new Image();
                         $image->url = $model->image;
                         $image->product_id = $model->id;

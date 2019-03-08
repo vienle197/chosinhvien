@@ -48,7 +48,7 @@ use common\components\LanguageHelpers;
                 Số lượng:
             </div>
             <div class="col-lg-9 btn-group">
-                <button class="btn" onclick="changeQuantity('-')"><i class="fa fa-chevron-left"></i></button><input onchange="changeInputNumber()" id="quantity" type="number" value="1" class="btn btn-group-quantiy" width="15%" /><button class="btn"  onclick="changeQuantity('+')" ><i class="fa fa-chevron-right"></i></button><span> <?= $product_child->stock_quantity ?> sản phẩm có thể mua</span>
+                <button class="btn" onclick="changeQuantity('-')"><i class="fa fa-chevron-left"></i></button><input onchange="changeInputNumber()" id="quantity" type="number" value="1" class="btn btn-group-quantiy" width="15%" /><button class="btn"  onclick="changeQuantity('+')" ><i class="fa fa-chevron-right"></i></button><span> <?= $product_child->stock_quantity ?> <?= $product_child->type_quantity ? $product_child->type_quantity : 'sản phẩm' ?> có thể mua</span>
             </div>
         </div>
     </div>
