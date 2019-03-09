@@ -18,6 +18,8 @@ use common\models\db\Product;
 use common\models\db\SystemCity;
 use common\models\db\SystemDistrict;
 use common\models\db\SystemWards;
+use common\models\Order;
+use Yii;
 use yii\db\ActiveQuery;
 use yii\web\Controller;
 
@@ -159,5 +161,69 @@ class HomeController extends Controller
             'customer' => $user,
             'list_address' => $ListAddress,
         ]);
+    }
+    public function actionOrder(){
+        {
+            $page = Yii::$app->request->get("page",1);
+            $limit = Yii::$app->request->get("limit",20);
+            $keyword = Yii::$app->request->get("keyword",false);
+            $type_search = Yii::$app->request->get("type_search",false);
+            $time_start = Yii::$app->request->get("time_start",false);
+            $time_end = Yii::$app->request->get("time_start",false);
+            $status = Yii::$app->request->get("status",false);
+            $user_id = Yii::$app->user->getId();
+            if (!$user_id){
+                return $this->redirect("/");
+            }
+            $search = Order::find()->where(['active' => 1,'customer_id' => $user_id]);
+            if($keyword){
+                if($type_search){
+                    if($type_search == 'buyer_name'){
+                        $condition = ['or'];
+                        $keywordArr = explode(' ',$keyword);
+                        foreach ($keywordArr as $val){
+                            $condition[] = ['like','first_name',$val];
+                            $condition[] = ['like','last_name',$val];
+                        }
+                        $search->andWhere($condition);
+                    }else{
+                        $search->andWhere(['like',$type_search,$keyword]);
+                    }
+                }else{
+                    $search->andWhere(['or',
+                        ['like' , 'customer_id' , $keyword],
+                        ['like' , 'first_name' , $keyword],
+                        ['like' , 'last_name' , $keyword],
+                        ['like' , 'phone' , $keyword],
+                        ['like' , 'email' , $keyword],
+                        ['like' , 'address' , $keyword],
+                    ]);
+                }
+            }
+            if($time_start){
+                $search->andWhere(['>','created_at',strtotime(str_replace("T"," ",$time_start))]);
+            }
+            if($time_end){
+                $search->andWhere(['>','created_at',strtotime(str_replace("T"," ",$time_end))]);
+            }
+            if($status){
+                $search->andWhere(['status'=>$status]);
+            }
+            $search->with(['city','district','ward',
+                'orderItems' => function($q){
+                    /** @var ActiveQuery $q*/
+                    $q->with([
+                        'product' => function($qr){
+                            /** @var ActiveQuery $qr*/
+                            $qr->with(['merchant','manufacturer']);
+                        }
+                    ]);
+                }
+            ]);
+            $search = $search->limit($limit)->offset($page-1 * $limit)->all();
+            return $this->render('order', [
+                'data' => $search
+            ]);
+        }
     }
 }

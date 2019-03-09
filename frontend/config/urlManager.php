@@ -15,5 +15,6 @@ return [
         'search' => 'home/search',
         'search/' => 'home/search',
         '/my-account.html' => 'home/my-account',
+        '/order.html' => 'home/order',
     ]
 ];

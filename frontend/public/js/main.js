@@ -356,3 +356,20 @@ var hide_edit = function () {
   $('#phone_edit').attr('disabled',true);
   $('#group_btn').css('display','none');
 };
+var updateOrder = function(id,status) {
+  $.ajax({
+    url: '/service/order/update-status',
+    method: "POST",
+    data: {
+      order_id: id,
+      status: status,
+    },
+    success: function (result) {
+      if(result.success){
+        window.location.reload();
+      }else {
+        alert(result.message);
+      }
+    }
+  });
+};
