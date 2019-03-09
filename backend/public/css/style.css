@@ -907,7 +907,6 @@ textarea.input {
 
 .product.product-single .product-thumb>img {
   width: 100%;
-  height: 100%;
 }
 
 .product.product-single .product-thumb:after {
@@ -1763,11 +1762,4 @@ input[type="number"] {
 }
 .modal{
   overflow: auto;
-}
-.product-thumb {
-  width: 100%;
-  height: 300px;
-}
-#home-slick .slick-list{
-  height: 460px;
 }

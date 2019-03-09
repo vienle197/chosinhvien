@@ -2,11 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: galat
- * Date: 28/11/2018
- * Time: 05:19 PM
+ * Date: 09/03/2019
+ * Time: 23:39
  */
-namespace frontend\controllers\service;
 
+namespace backend\controllers;
 
 use common\models\model\Response;
 use yii\rest\Controller;

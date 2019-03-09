@@ -95,7 +95,7 @@ if(isset($product_hot_sale[0])){
                 <!-- banner -->
                 <div class="col-md-4 col-sm-6 col-xs-6">
                     <a class="banner banner-1" href="<?= $imgBanner->link_page ?>">
-                        <img src="<?= $imgBanner->url ?>" alt="<?= $imgBanner->description ?>">
+                        <img src="<?= $imgBanner->url ?>" style="height: 260px" alt="<?= $imgBanner->description ?>">
                         <div class="banner-caption text-center">
                             <h2 class="white-color"><?= $imgBanner->title ?></h2>
                         </div>
@@ -166,7 +166,7 @@ if(isset($product_hot_sale[0])){
                 <!-- banner -->
                 <div class="<?= $key == 0 ? 'col-md-8 col-xs-12' : 'col-md-4 col-sm-6 col-xs-6' ?>">
                     <a class="banner banner-1" href="<?= $imgB->link_page ?>">
-                        <img src="<?= $imgB->url ?>" alt="<?= $imgB->description ?>">
+                        <img src="<?= $imgB->url ?>" style="height: <?= $key == 0 ? '550px' : '260px' ?>" alt="<?= $imgB->description ?>">
                         <div class="banner-caption text-center">
                             <h2 class="white-color"><?= $imgB->title ?></h2>
                         </div>

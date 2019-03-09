@@ -1,11 +1,12 @@
 <?php
 
+use common\components\LanguageHelpers;
+use common\models\Order;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\OrderSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $data \common\models\db\Order[] */
 
 $this->title = 'Orders';
 $this->params['breadcrumbs'][] = $this->title;
@@ -14,41 +15,63 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="row">
+        <table class="table">
+            <tbody>
+            <?php foreach ($data as $datum) {?>
+                <tr>
+                    <td>
+                        <strong>ORDER-<?= $datum->id ?></strong><br>
+                        <div><span><i class="fa fa-user"></i> <?= $datum->last_name ?> <?= $datum->first_name ?></span></div>
+                        <div><span><i class="fa fa-envelope"></i> <?= $datum->email ?></span></div>
+                        <div><span><i class="fa fa-phone"></i> <?= $datum->phone ?></span></div>
+                        <div><span><i class="fa fa-calendar"></i> <?= date('Y-m-d H:i:s',$datum->created_at) ?></span></div>
+                    </td>
+                    <td>
+                        <?php foreach ($datum->orderItems as $orderItem) { ?>
+                            <div class="row col-lg-12" >
+                                <div class="col-lg-1" ><div style="width: 60px;height: 60px;" ><img class="img-responsive" src="<?= Yii::$app->params['url_frontend'].$orderItem->product->image ?>"></div>  </div>
+                                <div class="col-lg-offset-1 col-lg-10" >
+                                    <strong><?= $orderItem->product->name ?></strong><br>
+                                    Số lượng: <span><?= $orderItem->quantity ?></span> | Tổng Giá: <span><?= LanguageHelpers::showMoney($orderItem->final_price_amount) ?></span> <br>
+                                    Hãng sản xuất: <span><?= $orderItem->product->manufacturer->name ?></span> <br>
+                                </div>
+                            </div>
+                       <?php }?>
+                    </td>
+                    <td><div class="label label-<?= \common\components\TextUtility::getClassStatus($datum->status) ?>"><?= $datum->status ?></div></td>
+                    <td>
+                        <?php if ($datum->status == Order::STATUS_NEW){?>
+                            <div class="product-btns">
+                                <button class="main-btn" onclick="updateOrder(<?= $datum->id ?>,'<?= Order::STATUS_CANCEL ?>')">
+                                    <?= LanguageHelpers::loadLanguage('cancel','Hủy') ?>
+                                    <i class="fa fa-close"></i>
+                                </button>
+                                <button class="primary-btn" onclick="updateOrder(<?= $datum->id ?>,'<?= Order::STATUS_APPROVE ?>')">
+                                    <?= LanguageHelpers::loadLanguage('Approve','Xác nhận') ?>
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            </div>
+                        <?php }else if ($datum->status == Order::STATUS_APPROVE){ ?>
+                            <div class="product-btns">
+                                <button class="primary-btn" onclick="updateOrder(<?= $datum->id ?>,'<?= Order::STATUS_SHIPPING ?>')">
+                                    <?= LanguageHelpers::loadLanguage('Shipping','Đang vận chuyển') ?>
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            </div>
+                        <?php }else if ($datum->status == Order::STATUS_SHIPPING){ ?>
+                            <div class="product-btns">
+                                <button class="primary-btn" onclick="updateOrder(<?= $datum->id ?>,'<?= Order::STATUS_AT_CUSTOMER ?>')">
+                                    <?= LanguageHelpers::loadLanguage('at_customer','Đã tới tay khách') ?>
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            </div>
+                        <?php }?>
+                    </td>
+                </tr>
+            <?php }?>
+            </tbody>
+        </table>
+    </div>
 
-    <p>
-        <?= Html::a('Create Order', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'customer_id',
-            'promotion_id',
-            'created_at',
-            'updated_at',
-            //'supported_by',
-            //'first_name',
-            //'last_name',
-            //'email:email',
-            //'phone',
-            //'address',
-            //'ward_id',
-            //'district_id',
-            //'city_id',
-            //'payment_method',
-            //'note',
-            //'status',
-            //'total_amount',
-            //'final_total_amount',
-            //'total_price_amount',
-            //'total_fee_amount',
-            //'active',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
 </div>

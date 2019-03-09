@@ -11,6 +11,7 @@ namespace frontend\controllers\service;
 
 use common\models\db\Address;
 use common\models\db\Cart;
+use common\models\db\Customer;
 use common\models\db\Order;
 use common\models\db\OrderItem;
 use common\models\db\Product;
@@ -133,8 +134,8 @@ class ItemController extends ServiceController
         $order->status = "NEW";
         $order->payment_method = "COD";
         $order->active = 1;
-        $order->created_at = date('Y-m-d H:i:s');
-        $order->updated_at = date('Y-m-d H:i:s');
+        $order->created_at = time();
+        $order->updated_at = time();
         $order->save(0);
         foreach ($list_cart as $value){
             $order_item = new OrderItem();
@@ -144,8 +145,8 @@ class ItemController extends ServiceController
             $order_item->price_amount= $value->price_amount;
             $order_item->final_price_amount= $value->final_price_amount;
             $order_item->active= 1;
-            $order_item->created_at = date('Y-m-d H:i:s');
-            $order_item->updated_at = date('Y-m-d H:i:s');
+            $order_item->created_at = time();
+            $order_item->updated_at = time();
             $order_item->save(0);
             $order->total_amount = $order->total_amount ? $order->total_amount + $value->final_price_amount : $value->final_price_amount;
             $order->final_total_amount = $order->final_total_amount ? $order->final_total_amount + $value->final_price_amount : $value->final_price_amount;
@@ -155,6 +156,7 @@ class ItemController extends ServiceController
         $order->total_amount = $order->total_amount + $order->total_fee_amount;
         $order->final_total_amount = $order->final_total_amount + $order->total_fee_amount;
         $order->save(0);
+        Customer::updateAll(['last_order_at' => time()],['id' => $order->customer_id]);
         Cart::updateAll(['active'=>0],['customer_id' => $this->user->getId(),'product_id' => $product_ids,'active'=>1]);
         \Yii::$app->session->remove('checkout_list');
         return $this->response(true,"Đặt hàng thành công!<br>Vui lòng chờ nhân viên giao hàng gọi điện và thanh toán cho nhân viên giao hàng");

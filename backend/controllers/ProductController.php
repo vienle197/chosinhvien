@@ -210,6 +210,8 @@ class ProductController extends Controller
                     $model->setAttributes($request->post("Product",null));
                     if($model->save()){
                         $model->sku = TextUtility::randChar(5).$model->id;
+                        Yii::debug(TextUtility::randChar(5).$model->id);
+                        Yii::debug($model->sku);
                         $model->save(0);
                         $image = new Image();
                         $image->url = $model->image;

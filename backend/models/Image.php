@@ -32,8 +32,8 @@ class Image extends \common\models\db\Image
     {
         if ($this->imageFile) {
             $path = \Yii::getAlias('@frontend/public');
-            $filePath = 'uploads/' . implode('/', str_split(TextUtility::randChar(10))) . '/';
-            $fileDirPath = $path . '/' . $filePath;
+            $filePath = '/uploads/' . implode('/', str_split(TextUtility::randChar(10))) . '/';
+            $fileDirPath = $path  . $filePath;
             if (!file_exists($fileDirPath)) {
                 mkdir($fileDirPath, 0777, true);
             }

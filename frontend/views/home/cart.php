@@ -58,7 +58,7 @@ use common\components\LanguageHelpers;
                                     <input onchange="changeQuantityInCart(' ','<?= $cart->product->id ?>')" id="quantity_cart_<?= $cart->product->id ?>" type="number" value="<?= $cart->quantity ?>" class="btn btn-group-quantiy" width="15%" />
                                     <button class="btn"  onclick="changeQuantityInCart('+','<?= $cart->product->id ?>')" ><i class="fa fa-chevron-right"></i></button>
                                     <span>
-                                        <?= $cart->product->type_quantity ? $product_child->type_quantity : 'sản phẩm' ?>
+                                        <?= $cart->product->type_quantity ? $cart->product->type_quantity : 'sản phẩm' ?>
                                     </span>
                                 </td>
                                 <td>
