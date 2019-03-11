@@ -170,7 +170,11 @@ class LoginController extends ServiceController
         $model->updated_at = date('Y-m-d H:i:s');
         $model->status = 1;
         if (!$model->validate()) {
-            return $this->response(false, 'Vui lòng nhập hết tất cả các trường',$model->errors);
+            $mess = "";
+            foreach ($model->errors as $error){
+                $mess .= $error[0];
+            }
+            return $this->response(false, $mess,$model->errors);
         }
         if ($user = $model->signup()) {
             if (Yii::$app->getUser()->login($user)) {

@@ -109,8 +109,10 @@ class ProductController extends Controller
                     // file is uploaded successfully
                     $post = $request->post("Product",null);
                     $time = isset($post['expired_time_sale_price']) && $post['expired_time_sale_price'] ? str_replace('T',' ',$post['expired_time_sale_price']) : "";
-                    $model->expired_time_sale_price = strtotime($time);
                     $model->setAttributes($post);
+                    $model->expired_time_sale_price = $time ? strtotime($time) : null;
+                    $model->active = 1;
+                    $model->sale_percent = $model->sale_price ? round($model->sale_price / $model->price,4) * 100 : 0;
                     if($model->save()){
                         $image = new Image();
                         $image->url = $model->image;
@@ -127,8 +129,9 @@ class ProductController extends Controller
 
                         ];
                     }else{
-//                        print_r($model->errors);
-//                        die;
+                        print_r($model);
+                        print_r($model->errors);
+                        die;
                         return [
                             'forceReload'=>'#crud-datatable-pjax',
                             'title'=> "Create new Product",

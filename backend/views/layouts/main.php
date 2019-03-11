@@ -38,7 +38,7 @@ AppAsset::register($this);
             'class' => 'brand-op'
         ],
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse',
         ],
     ]);
     if (Yii::$app->user->isGuest) {
