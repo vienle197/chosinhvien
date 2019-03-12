@@ -26,13 +26,13 @@ AppAsset::register($this);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 </head>
-<body onload="$('#loader').hide();">
+<body onload="$('#loader').hide();" >
 <?php $this->beginBody() ?>
 
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandImage' => "/img/logo.png",
+        'brandLabel' => \common\components\LanguageHelpers::loadLanguage('shop-name',"VatLieuXayDung.Com"),
         'brandUrl' => Yii::$app->homeUrl,
         'brandOptions' => [
             'class' => 'brand-op'
@@ -46,14 +46,14 @@ AppAsset::register($this);
     } else {
         $menuItems = [
             ['label' => 'Home', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/site/index']],
-            ['label' => 'Order', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/order/index']],
-            ['label' => 'Category', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/category/index']],
-            ['label' => 'Manufacturer', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/manufacturer/index']],
-            ['label' => 'Merchant', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/merchant/index']],
-            ['label' => 'Product', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/product/index']],
-            ['label' => 'Language', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/language/index']],
-            ['label' => 'Image', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/image/index']],
+            ['label' => 'Đơn Hàng', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/order/index']],
+            ['label' => 'Danh Mục', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/category/index']],
+            ['label' => 'Nhà SX', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/manufacturer/index']],
+            ['label' => 'Sản phẩm', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/product/index']],
+            ['label' => 'Ngôn ngữ', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/language/index']],
+            ['label' => 'Ảnh', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/image/index']],
             ['label' => 'User', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/user/index']],
+            ['label' => 'Khách hàng', 'options' => ['onclick' => "$('#loader').show();"], 'url' => ['/customer/index']],
         ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
@@ -92,9 +92,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+        <p class="pull-left">&copy; <?= Html::encode(\common\components\LanguageHelpers::loadLanguage('shop-name',"VatLieuXayDung.Com")) ?> <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right">By Website</p>
     </div>
 </footer>
 

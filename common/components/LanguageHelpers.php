@@ -15,7 +15,8 @@ class LanguageHelpers
 {
     public static function loadLanguage($key,$default="",$language="vi"){
         $key_cache = "languae-".$key."-".$language;
-        $text = \Yii::$app->cache->get($key_cache);
+        $cache = \Yii::$app->request->get("clear_language",false);
+        $text = $cache == 'yes' ? null : \Yii::$app->cache->get($key_cache);
         if(!$text){
             $lang = Language::find()->where(['language_code' => $language ,'resource' => $key])->limit(1)->one();
             if(!$lang){

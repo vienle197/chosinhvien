@@ -373,3 +373,56 @@ var updateOrder = function(id,status) {
     }
   });
 };
+var editPass = function () {
+  $("#group_btn_pass").css('display','block');
+  $("#re_pass_group").css('display','block');
+  $("#password_edit").attr('type','password');
+};
+
+var hide_edit_pass = function () {
+  $("#group_btn_pass").css('display','none');
+  $("#re_pass_group").css('display','none');
+  $("#password_edit").attr('type','hidden');
+};
+var save_edit = function () {
+  loadShow();
+  $.ajax({
+    url: '/service/account/update-acc',
+    method: "POST",
+    data: {
+      first_name: $('#first_name_edit').val(),
+      last_name: $('#last_name_edit').val(),
+      email: $('#email_edit').val(),
+      phone: $('#phone_edit').val(),
+    },
+    success: function (result) {
+      if(result.success){
+        popupNotify('Thành công', result.message,'/');
+      }else {
+        popupNotify('Fail', result.message);
+      }
+    }
+  });
+};
+var save_edit_pass = function () {
+  var pass = $('#password_edit').val();
+  var repass = $('#re_password_edit').val();
+  if(pass != repass){
+    return popupNotify('Thông báo', "Nhập lại mật khẩu ko trùng");
+  }
+  loadShow();
+  $.ajax({
+    url: '/service/account/update-pass',
+    method: "POST",
+    data: {
+      password: pass,
+    },
+    success: function (result) {
+      if(result.success){
+        popupNotify('Thành công', result.message,'/');
+      }else {
+        popupNotify('Fail', result.message);
+      }
+    }
+  });
+};

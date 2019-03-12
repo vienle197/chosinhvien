@@ -25,7 +25,7 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
+<body style="background: #dadada5c">
 <?php $this->beginBody() ?>
 <?php
  echo \frontend\views\widgets\Header::widget();
@@ -127,9 +127,6 @@ AppAsset::register($this);
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="titlePopup"><?= LanguageHelpers::loadLanguage("login",'Đăng nhập') ?></h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <div style="padding: 10px;">
@@ -139,7 +136,6 @@ AppAsset::register($this);
             <div class="modal-footer">
                 <div class="product-btns">
                     <button class="main-btn icon-btn btnnotify" data-dismiss="modal"><i class="fa fa-check"></i>Ok</button>
-                    <button class="main-btn icon-btn btnconfirm" id="btnclose" data-dismiss="modal"><i class="fa fa-close"></i>Close</button>
                     <button class="main-btn icon-btn btnconfirm" id="btnOk" href="#"><i class="fa fa-check"></i>Ok</button>
                 </div>
             </div>

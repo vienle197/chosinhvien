@@ -14,7 +14,7 @@
             <div class="col-md-8 col-md-offset-2 text-center">
                 <!-- footer copyright -->
                 <div class="footer-copyright">
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> THIS WEBSITE CODE <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">TAKUDO</a>
+                    <?= \common\components\LanguageHelpers::loadLanguage("footer_title","Liên hệ vatlieuxaydung.com") ?>
                 </div>
                 <!-- /footer copyright -->
             </div>
@@ -27,7 +27,7 @@
                 <!-- footer copyright -->
                 <div class="footer-copyright">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> THIS WEBSITE CODE <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">TAKUDO</a>
+                    <?= \common\components\LanguageHelpers::loadLanguage("footer_content","Liên hệ vatlieuxaydung.com") ?>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </div>
                 <!-- /footer copyright -->

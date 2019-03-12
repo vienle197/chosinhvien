@@ -81,56 +81,56 @@ class CustomerController extends Controller
      */
     public function actionCreate()
     {
-        $request = Yii::$app->request;
-        $model = new Customer();  
-
-        if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            if($request->isGet){
-                return [
-                    'title'=> "Create new Customer",
-                    'content'=>$this->renderAjax('create', [
-                        'model' => $model,
-                    ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
-            }else if($model->load($request->post()) && $model->save()){
-                return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new Customer",
-                    'content'=>'<span class="text-success">Create Customer success</span>',
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
-        
-                ];         
-            }else{           
-                return [
-                    'title'=> "Create new Customer",
-                    'content'=>$this->renderAjax('create', [
-                        'model' => $model,
-                    ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
-            }
-        }else{
-            /*
-            *   Process for non-ajax request
-            */
-            if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            } else {
-                return $this->render('create', [
-                    'model' => $model,
-                ]);
-            }
-        }
+//        $request = Yii::$app->request;
+//        $model = new Customer();
+//
+//        if($request->isAjax){
+//            /*
+//            *   Process for ajax request
+//            */
+//            Yii::$app->response->format = Response::FORMAT_JSON;
+//            if($request->isGet){
+//                return [
+//                    'title'=> "Create new Customer",
+//                    'content'=>$this->renderAjax('create', [
+//                        'model' => $model,
+//                    ]),
+//                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+//                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+//
+//                ];
+//            }else if($model->load($request->post()) && $model->save()){
+//                return [
+//                    'forceReload'=>'#crud-datatable-pjax',
+//                    'title'=> "Create new Customer",
+//                    'content'=>'<span class="text-success">Create Customer success</span>',
+//                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+//                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+//
+//                ];
+//            }else{
+//                return [
+//                    'title'=> "Create new Customer",
+//                    'content'=>$this->renderAjax('create', [
+//                        'model' => $model,
+//                    ]),
+//                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+//                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+//
+//                ];
+//            }
+//        }else{
+//            /*
+//            *   Process for non-ajax request
+//            */
+//            if ($model->load($request->post()) && $model->save()) {
+//                return $this->redirect(['view', 'id' => $model->id]);
+//            } else {
+//                return $this->render('create', [
+//                    'model' => $model,
+//                ]);
+//            }
+//        }
        
     }
 

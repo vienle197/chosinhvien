@@ -112,8 +112,11 @@ class ProductController extends Controller
                     $model->setAttributes($post);
                     $model->expired_time_sale_price = $time ? strtotime($time) : null;
                     $model->active = 1;
+                    $model->disable_buy_now = 0;
                     $model->sale_percent = $model->sale_price ? round($model->sale_price / $model->price,4) * 100 : 0;
                     if($model->save()){
+                        $model->sku = TextUtility::randChar(5).$model->id;
+                        $model->save();
                         $image = new Image();
                         $image->url = $model->image;
                         $image->product_id = $model->id;
@@ -129,15 +132,16 @@ class ProductController extends Controller
 
                         ];
                     }else{
-                        print_r($model);
-                        print_r($model->errors);
-                        die;
+                        $mess = "";
+                        foreach ($model->errors as $error){
+                            $mess .= $error[0].'<br>';
+                        }
                         return [
                             'forceReload'=>'#crud-datatable-pjax',
-                            'title'=> "Create new Product",
-                            'content'=>'<span class="text-success">Create Product Faild</span>',
+                            'title'=> "Create new Faild",
+                            'content'=>'<span class="text-success">'.$mess.'</span>',
                             'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::a('Create Again',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                                Html::a('Try Again',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
 
                         ];
                     }
@@ -210,12 +214,15 @@ class ProductController extends Controller
                 $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
                 if ($model-> image = $model->upload()) {
                     // file is uploaded successfully
-                    $model->setAttributes($request->post("Product",null));
+                    $post = $request->post("Product",null);
+                    $time = isset($post['expired_time_sale_price']) && $post['expired_time_sale_price'] ? str_replace('T',' ',$post['expired_time_sale_price']) : "";
+                    $model->setAttributes($post);
+                    $model->expired_time_sale_price = $time ? strtotime($time) : null;
+                    $model->active = 1;
+                    $model->sale_percent = $model->sale_price ? round($model->sale_price / $model->price,4) * 100 : 0;
                     if($model->save()){
                         $model->sku = TextUtility::randChar(5).$model->id;
-                        Yii::debug(TextUtility::randChar(5).$model->id);
-                        Yii::debug($model->sku);
-                        $model->save(0);
+                        $model->save();
                         $image = new Image();
                         $image->url = $model->image;
                         $image->product_id = $model->id;
@@ -232,13 +239,18 @@ class ProductController extends Controller
                                 Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
                         ];
                     }else{
-//                        print_r($model->errors);
-//                        die;
+                        $mess = "";
+                        foreach ($model->errors as $error){
+                            $mess .= $error[0].'<br>';
+                        }
+                        return [
+                            'forceReload'=>'#crud-datatable-pjax',
+                            'title'=> "Create new Faild",
+                            'content'=>'<span class="text-success">'.$mess.'</span>',
+                            'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"])
+                        ];
                     }
                 }else{
-//                    print_r($model->errors);
-//                    print_r($model);
-//                    die;
                     return [
                         'forceReload'=>'#crud-datatable-pjax',
                         'title'=> "Create new Product",

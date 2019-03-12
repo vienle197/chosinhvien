@@ -56,7 +56,7 @@ use common\models\db\Customer;
             </div>
             <div class="form-group">
                 <label><?= LanguageHelpers::loadLanguage('password', 'Mật khẩu') ?></label>
-                <div class="data_temp" >************ <i class="fa fa-edit"></i></div>
+                <div class="data_temp" onclick="editPass()" >************ <i class="fa fa-edit"></i></div>
                 <span class="">
                             <input name="password_edit" type="hidden" id="password_edit" class="form-control"
                                    placeholder="<?= LanguageHelpers::loadLanguage('password', 'Tên đăng nhập') ?>">
@@ -79,7 +79,14 @@ use common\models\db\Customer;
             <div class="form-group" id="group_btn" style="display: none">
                 <div class="product-btns">
                     <button class="main-btn" onclick="hide_edit()" ><i class="fa fa-close"></i><?= LanguageHelpers::loadLanguage('cancel','Hủy bỏ') ?></button>
-                    <button class="primary-btn add-to-cart" onclick="save_edit()" ><i class="fa fa-close"></i><?= LanguageHelpers::loadLanguage('save','Lưu lại') ?></button>
+                    <button id="btn_save" class="primary-btn add-to-cart" onclick="save_edit()" ><i class="fa fa-close"></i><?= LanguageHelpers::loadLanguage('save','Lưu lại') ?></button>
+                    <button id="btn_save_pass" class="primary-btn add-to-cart" style="display: none;" onclick="save_edit()" ><i class="fa fa-close"></i><?= LanguageHelpers::loadLanguage('save_pass','Thay Đổi Mật Khẩu') ?></button>
+                </div>
+            </div>
+            <div class="form-group" id="group_btn_pass" style="display: none">
+                <div class="product-btns">
+                    <button class="main-btn" onclick="hide_edit_pass()" ><i class="fa fa-close"></i><?= LanguageHelpers::loadLanguage('cancel','Hủy bỏ') ?></button>
+                    <button id="btn_save_pass" class="primary-btn add-to-cart" onclick="save_edit()" ><i class="fa fa-close"></i><?= LanguageHelpers::loadLanguage('save_pass','Thay Đổi Mật Khẩu') ?></button>
                 </div>
             </div>
         </div>

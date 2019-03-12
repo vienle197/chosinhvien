@@ -19,7 +19,7 @@ use common\components\LanguageHelpers;
     <div id="top-header">
         <div class="container">
             <div class="pull-left">
-                <span><?= LanguageHelpers::loadLanguage("Welcome-to","Chào mừng đến với") ?> <?= LanguageHelpers::loadLanguage("shop-name","E Shop") ?>!</span>
+                <span><?= LanguageHelpers::loadLanguage("Welcome-to","Chào mừng đến với") ?> <?= LanguageHelpers::loadLanguage("shop-name","VatLieuXayDung.Com") ?>!</span>
             </div>
             <div class="pull-right">
                 <ul class="header-top-links">
@@ -42,9 +42,11 @@ use common\components\LanguageHelpers;
             <div class="pull-left">
                 <!-- Logo -->
                 <div class="header-logo">
-                    <a class="logo" href="/">
-                        <img src="<?= LanguageHelpers::loadLanguage('logo_img','/img/logo.png') ?>" alt="">
-                    </a>
+                    <h2>
+                        <a class="logo" href="/">
+                            <?= LanguageHelpers::loadLanguage("shop-name","VatLieuXayDung.Com") ?>
+                        </a>
+                    </h2>
                 </div>
                 <!-- /Logo -->
 

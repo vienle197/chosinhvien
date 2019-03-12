@@ -21,8 +21,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(Category::find()->all(), 'id', 'name'), ['prompt'=>'Select Category']) ?>
 
-    <?= $form->field($model, 'parent_sku')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'manufacturer_id')->dropDownList(ArrayHelper::map(Manufacturer::find()->all(), 'id', 'name'), ['prompt'=>'Select Manufacturer']) ?>
 
     <?= $form->field($model, 'merchant_id')->dropDownList(ArrayHelper::map(Merchant::find()->all(), 'id', 'name'), ['prompt'=>'Select Merchant']) ?>
@@ -36,12 +34,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'min_quantity')->textInput() ?>
 
     <?= $form->field($model, 'max_quantity')->textInput() ?>
-
-    <?= $form->field($model, 'disable_buy_now')->textInput() ?>
-
-    <?= $form->field($model, 'disable_add_to_card')->textInput() ?>
-
-    <?= $form->field($model, 'is_pre_order')->textInput() ?>
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
@@ -58,8 +50,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'imageFile')->fileInput() ?>
-
-    <?= $form->field($model, 'sale_percent')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->widget(CKEditor::className(), [
         'options' => ['rows' => 6],

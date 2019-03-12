@@ -102,16 +102,32 @@ class UserController extends Controller
             }else if($model->load($request->post())){
                 $model->password_hash = Yii::$app->security->generatePasswordHash($model->password_hash);
                 $model->auth_key = Yii::$app->security->generateRandomString();
-                $model->save();
-                return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new User",
-                    'content'=>'<span class="text-success">Create User success</span>',
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                $model->created_at = time();
+                $model->updated_at = time();
+                if($model->save()){
+                    return [
+                        'forceReload'=>'#crud-datatable-pjax',
+                        'title'=> "Create new User",
+                        'content'=>'<span class="text-success">Create User success</span>',
+                        'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
-        
-                ];         
-            }else{           
+
+                    ];
+                }else{
+                    $mess = "";
+                    foreach ($model->errors as $error){
+                        $mess .= $error[0].'<br>';
+                    }
+                    return [
+                        'forceReload'=>'#crud-datatable-pjax',
+                        'title'=> "Create new Faild",
+                        'content'=>'<span class="text-success">'.$mess.'</span>',
+                        'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Try Again',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+
+                    ];
+                }
+            }else{
                 return [
                     'title'=> "Create new User",
                     'content'=>$this->renderAjax('create', [
@@ -119,8 +135,8 @@ class UserController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }
         }else{
             /*
@@ -162,17 +178,32 @@ class UserController extends Controller
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post())){
+                $model->password_hash = Yii::$app->security->generatePasswordHash($model->password_hash);
+                $model->auth_key = Yii::$app->security->generateRandomString();
                 $model->updated_at = time();
-                return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "User #".$id,
-                    'content'=>$this->renderAjax('view', [
-                        'model' => $model,
-                    ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                if($model->save()){
+                    return [
+                        'forceReload'=>'#crud-datatable-pjax',
+                        'title'=> "User #".$id,
+                        'content'=>$this->renderAjax('view', [
+                            'model' => $model,
+                        ]),
+                        'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
-                ];    
+                    ];
+                }else{
+                    $mess = "";
+                    foreach ($model->errors as $error){
+                        $mess .= $error[0].'<br>';
+                    }
+                    return [
+                        'forceReload'=>'#crud-datatable-pjax',
+                        'title'=> "Update new Faild",
+                        'content'=>'<span class="text-success">'.$mess.'</span>',
+                        'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"])
+                    ];
+                }
             }else{
                  return [
                     'title'=> "Update User #".$id,
@@ -181,7 +212,7 @@ class UserController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];        
+                ];
             }
         }else{
             /*
